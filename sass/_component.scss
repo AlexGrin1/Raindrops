@@ -72,9 +72,9 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 60px);
-  column-gap: 15px;
-  row-gap: 25px;
-  align-self: center;
+  column-gap: 10px;
+  row-gap: 10px;
+  margin: 0;
 }
 #null {
   grid-column-start: 1;
@@ -93,12 +93,13 @@
   grid-row-end: 3;
 }
 .panel_control {
+  padding: 10px;
+  border-radius: 10px;
   display: grid;
-  width: 80%;
-  height: 60vh;
   background-color: white;
 }
 .screen {
+  margin-bottom: 10px;
   background-color: whitesmoke;
   border: 2px solid green;
   height: 80px;
