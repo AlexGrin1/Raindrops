@@ -1,0 +1,105 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Patrick Hand", cursive;
+}
+
+.container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+.game {
+  font-weight: 300;
+  position: relative;
+  display: flex;
+  flex: 2;
+  background-image: url(/Raindrops/media/beach.jpg);
+  background-size: cover;
+}
+
+.logo {
+  position: absolute;
+  padding: 5px;
+  font-size: 175px;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: aqua;
+  animation: colors 15s infinite;
+}
+
+.control {
+  display: flex;
+  flex: 1;
+  background-color: #869c9c;
+}
+
+.hidden {
+  display: none;
+}
+
+.buttons_block {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.buttons_block button:first-child {
+  animation: button_go 3s infinite;
+  color: white;
+}
+.buttons_block button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-size: 70px;
+  border-radius: 100% 0 100% 80%;
+  border: none;
+  background-color: rgba(2, 161, 95, 0.404);
+  color: rgba(202, 202, 202, 0.637);
+  text-shadow: 0 0 5px #3d3c3c;
+  box-shadow: 0 3px 3px #c1e0e4;
+}
+.buttons_block button:hover {
+  background-color: rgba(5, 201, 119, 0.781);
+  color: white;
+  transform: scale(0.95);
+  transition: 0.2s;
+  cursor: pointer;
+}
+.buttons_block button:focus {
+  outline: none;
+}
+
+@keyframes button_go {
+  50% {
+    transform: scale(1.1);
+  }
+}
+@keyframes colors {
+  0% {
+    color: aqua;
+    text-shadow: 0 0 15px #140375;
+  }
+  50% {
+    color: #00ff62;
+    text-shadow: 0 0 7px #03056e;
+  }
+  75% {
+    color: #00ff62;
+    text-shadow: 0 0 12px #00c9a7;
+  }
+  100% {
+    color: aqua;
+    text-shadow: 0 0 15px #140375;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
