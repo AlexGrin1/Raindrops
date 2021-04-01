@@ -14,70 +14,56 @@
   font-weight: 300;
   position: relative;
   display: flex;
-  flex: 2;
-  background-image: url(/Raindrops/media/beach.jpg);
+  flex: 3;
+  background-image: url(/media/beach.jpg);
   background-size: cover;
+}
+
+.start_logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .logo {
   position: absolute;
-  padding: 5px;
-  font-size: 175px;
-  top: 20%;
+  top: 5%;
   left: 50%;
   transform: translateX(-50%);
+  padding: 5px;
+  margin-bottom: 20px;
+  font-size: 175px;
   color: aqua;
   animation: colors 15s infinite;
 }
 
 .control {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   flex: 1;
-  background-color: #869c9c;
+  background-color: rgba(2, 161, 95, 0.404);
 }
 
 .hidden {
   display: none;
 }
 
-.buttons_block {
-  display: flex;
-  flex-direction: column;
+.score {
   position: absolute;
-  top: 50%;
+  top: 0;
   left: 50%;
+  font-size: 40px;
+  border-radius: 0 0 80px 80px;
+  width: 80%;
+  height: 70px;
   transform: translateX(-50%);
-}
-.buttons_block button:first-child {
-  animation: button_go 3s infinite;
-  color: white;
-}
-.buttons_block button {
+  background-color: #f3f5f4;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  padding: 10px;
-  margin-bottom: 20px;
-  height: 100px;
-  font-size: 70px;
-  border-radius: 100% 0 100% 80%;
-  border: none;
-  background-color: rgba(2, 161, 95, 0.404);
-  color: rgba(202, 202, 202, 0.637);
-  text-shadow: 0 0 5px #3d3c3c;
-  box-shadow: 0 3px 3px #c1e0e4;
-}
-.buttons_block button:hover {
-  background-color: rgba(5, 201, 119, 0.781);
-  color: white;
-  transform: scale(0.95);
-  transition: 0.2s;
-  cursor: pointer;
-}
-.buttons_block button:focus {
-  outline: none;
+  padding-left: 30px;
 }
 
 @keyframes button_go {
@@ -103,14 +89,50 @@
     text-shadow: 0 0 15px #140375;
   }
 }
-.buttons {
-  margin: 20px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 60px);
-  column-gap: 10px;
-  row-gap: 10px;
-  margin: 0;
+.started_block {
+  display: flex;
+}
+
+.buttons_block {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.buttons_block button:first-child {
+  animation: button_go 3s infinite;
+  color: white;
+}
+.buttons_block button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-size: 40px;
+  border-radius: 100% 0 100% 80%;
+  border: none;
+  background-color: rgba(2, 161, 95, 0.404);
+  color: rgba(202, 202, 202, 0.637);
+  text-shadow: 0 0 5px #3d3c3c;
+  box-shadow: 0 3px 3px #c1e0e4;
+}
+.buttons_block button:hover {
+  background-color: rgba(5, 201, 119, 0.781);
+  color: white;
+  transform: scale(0.95);
+  transition: 0.2s;
+  cursor: pointer;
+}
+.buttons_block button:focus {
+  outline: none;
+}
+
+#delete {
+  font-size: 25px;
 }
 
 #null {
@@ -119,6 +141,7 @@
 }
 
 #enter {
+  font-size: 25px;
   grid-column-start: 4;
   grid-column-end: 4;
   grid-row-start: 3;
@@ -126,6 +149,7 @@
 }
 
 #clear {
+  font-size: 25px;
   grid-column-start: 4;
   grid-column-end: 4;
   grid-row-start: 1;
@@ -135,20 +159,35 @@
 .panel_control {
   padding: 10px;
   border-radius: 10px;
-  display: grid;
   background-color: white;
 }
 
-.screen {
-  margin-bottom: 10px;
+.screen_panel_control {
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: whitesmoke;
-  border: 2px solid green;
+  border-radius: 10px 10px 0 0;
+  border: 2px solid black;
   height: 80px;
 }
 
+.buttons_panel_control {
+  margin: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 60px);
+  margin: 0;
+}
+
 .controll_buttons {
-  background-color: #03968e;
-  border: 2px solid green;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  padding: 5px;
 }
 
 /*# sourceMappingURL=style.css.map */

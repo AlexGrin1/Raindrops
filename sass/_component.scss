@@ -1,9 +1,39 @@
 @import "constants";
+@keyframes button_go {
+  0% {
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+  }
+}
+@keyframes colors {
+  0% {
+    color: aqua;
+    text-shadow: 0 0 15px rgb(20, 3, 117);
+  }
+  50% {
+    color: rgb(0, 255, 98);
+    text-shadow: 0 0 7px rgb(3, 5, 110);
+  }
+  75% {
+    color: rgb(0, 255, 98);
+    text-shadow: 0 0 12px rgb(0, 201, 167);
+  }
+  100% {
+    color: aqua;
+    text-shadow: 0 0 15px rgb(20, 3, 117);
+  }
+}
+
+.started_block {
+  display: flex;
+}
 
 .buttons_block {
   display: flex;
   flex-direction: column;
-
   position: absolute;
   top: 50%;
   left: 50%;
@@ -40,53 +70,23 @@
     }
   }
 }
-@keyframes button_go {
-  0% {
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-  }
-}
-@keyframes colors {
-  0% {
-    color: aqua;
-    text-shadow: 0 0 15px rgb(20, 3, 117);
-  }
-  50% {
-    color: rgb(0, 255, 98);
-    text-shadow: 0 0 7px rgb(3, 5, 110);
-  }
-  75% {
-    color: rgb(0, 255, 98);
-    text-shadow: 0 0 12px rgb(0, 201, 167);
-  }
-  100% {
-    color: aqua;
-    text-shadow: 0 0 15px rgb(20, 3, 117);
-  }
-}
-.buttons {
-  margin: 20px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 60px);
-  column-gap: 10px;
-  row-gap: 10px;
-  margin: 0;
+
+#delete {
+  font-size: $size-text-small;
 }
 #null {
   grid-column-start: 1;
   grid-column-end: 3;
 }
 #enter {
+  font-size: $size-text-small;
   grid-column-start: 4;
   grid-column-end: 4;
   grid-row-start: 3;
   grid-row-end: 5;
 }
 #clear {
+  font-size: $size-text-small;
   grid-column-start: 4;
   grid-column-end: 4;
   grid-row-start: 1;
@@ -95,16 +95,30 @@
 .panel_control {
   padding: 10px;
   border-radius: 10px;
-  display: grid;
   background-color: white;
 }
-.screen {
-  margin-bottom: 10px;
+.screen_panel_control {
+  font-size: $size-text-big;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: whitesmoke;
-  border: 2px solid green;
+  border-radius: 10px 10px 0 0;
+  border: 2px solid rgb(0, 0, 0);
   height: 80px;
 }
+.buttons_panel_control {
+  margin: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 60px);
+  margin: 0;
+}
 .controll_buttons {
-  background-color: rgb(3, 150, 142);
-  border: 2px solid green;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: $size_text_button;
+  padding: 5px;
 }

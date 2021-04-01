@@ -13,27 +13,49 @@
   font-weight: 300;
   position: relative;
   display: flex;
-  flex: 2;
-  background-image: url(/Raindrops/media/beach.jpg);
+  flex: 3;
+  background-image: url(/media/beach.jpg);
   background-size: cover;
+}
+.start_logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .logo {
   position: absolute;
-  padding: 5px;
-  font-size: $size_logo;
-  top: 20%;
+  top: 5%;
   left: 50%;
   transform: translateX(-50%);
+  padding: 5px;
+  margin-bottom: 20px;
+  font-size: $size_logo;
   color: aqua;
   animation: colors 15s infinite;
 }
 .control {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   flex: 1;
-  background-color: rgb(134, 156, 156);
+  background-color: $backgr_start_button;
 }
 .hidden {
   display: none;
+}
+.score {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  font-size: $size_text_button;
+  border-radius: 0 0 80px 80px;
+  width: 80%;
+  height: 70px;
+  transform: translateX(-50%);
+  background-color: rgb(243, 245, 244);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 30px;
 }
