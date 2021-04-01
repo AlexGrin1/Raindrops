@@ -21,7 +21,7 @@
   position: relative;
   display: flex;
   flex: 3;
-  background-image: url(/media/beach.jpg);
+  background-image: url(../media/beach.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -61,6 +61,7 @@
   background-color: #f3f5f4;
   justify-content: flex-start;
   padding-left: 25px;
+  overflow: hidden;
 }
 
 @keyframes button_go {
@@ -169,6 +170,7 @@
   border-radius: 10px 10px 0 0;
   border: 2px solid black;
   height: 70px;
+  overflow: hidden;
 }
 
 .buttons_panel_control {
