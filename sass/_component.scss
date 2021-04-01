@@ -60,6 +60,7 @@
 
     &:hover {
       background-color: rgba(5, 201, 119, 0.781);
+      box-shadow: 0 3px 15px rgb(253, 253, 253);
       color: rgb(255, 255, 255);
       transform: scale(0.95);
       transition: 0.2s;
@@ -71,7 +72,9 @@
   }
 }
 
-#delete {
+#delete,
+#enter,
+#clear {
   font-size: $size-text-small;
 }
 #null {
@@ -79,14 +82,12 @@
   grid-column-end: 3;
 }
 #enter {
-  font-size: $size-text-small;
   grid-column-start: 4;
   grid-column-end: 4;
   grid-row-start: 3;
   grid-row-end: 5;
 }
 #clear {
-  font-size: $size-text-small;
   grid-column-start: 4;
   grid-column-end: 4;
   grid-row-start: 1;
@@ -95,7 +96,7 @@
 .panel_control {
   padding: 10px;
   border-radius: 10px;
-  background-color: white;
+  background-color: rgb(253, 253, 253);
 }
 .screen_panel_control {
   font-size: $size-text-big;
@@ -105,7 +106,7 @@
   background-color: whitesmoke;
   border-radius: 10px 10px 0 0;
   border: 2px solid rgb(0, 0, 0);
-  height: 80px;
+  height: 70px;
 }
 .buttons_panel_control {
   margin: 20px;
@@ -121,4 +122,12 @@
   align-items: center;
   font-size: $size_text_button;
   padding: 5px;
+  &:hover,
+  &:active {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgb(9, 230, 9);
+    color: rgb(9, 230, 9);
+    cursor: pointer;
+    transition: 0.2s;
+  }
 }

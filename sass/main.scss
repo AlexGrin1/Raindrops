@@ -1,3 +1,71 @@
 @import "base";
 @import "component";
 @import "constants";
+
+@media screen and (max-width: $desctop) {
+  #delete,
+  #enter,
+  #clear {
+    font-size: 20px;
+  }
+  .score {
+    font-size: $size_text_button * 0.8;
+  }
+  .logo {
+    font-size: $size_logo * 0.7;
+  }
+  .buttons_block {
+    button {
+      font-size: $size_text_button * 0.8;
+    }
+  }
+  .controll_buttons {
+    font-size: $size_text_button * 0.9;
+  }
+}
+@media screen and (max-width: $tablet) {
+  .control {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.158);
+  }
+  #delete,
+  #enter,
+  #clear {
+    font-size: $size-text-small * 0.6;
+  }
+  .score {
+    font-size: $size_text_button * 0.6;
+  }
+  .logo {
+    font-size: $size_logo * 0.5;
+  }
+  .buttons_block {
+    button {
+      font-size: $size_text_button * 0.6;
+    }
+  }
+  .controll_buttons {
+    font-size: $size_text_button * 0.6;
+  }
+  .score {
+    position: fixed;
+    width: 50%;
+    height: 40px;
+  }
+}
+@media screen and (max-width: $mobile) {
+  .buttons_panel_control {
+    grid-template-rows: repeat(4, 40px);
+  }
+  .screen_panel_control {
+    height: 50px;
+  }
+  .logo {
+    font-size: $size_logo * 0.3;
+  }
+  .panel_control {
+    opacity: 0.6;
+  }
+}
