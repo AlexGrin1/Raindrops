@@ -108,7 +108,7 @@
   }
 }
 .bubble {
-  @extend %flex_center;
+  @include flex_center;
   font-size: $size_text_small;
   width: 70px;
   height: 70px;

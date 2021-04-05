@@ -4,7 +4,7 @@
   padding: 0;
   font-family: "Patrick Hand", cursive;
 }
-%flex_center {
+@mixin flex_center {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,7 +27,7 @@
   overflow: hidden;
 }
 .start_logo {
-  @extend %flex_center;
+  @include flex_center;
 }
 .logo {
   position: absolute;
@@ -42,7 +42,7 @@
 }
 .control {
   position: relative;
-  @extend %flex_center;
+  @include flex_center;
   flex: 1;
   background-color: $backgr_start_button;
 }
@@ -59,7 +59,7 @@
   width: 80%;
   height: 50px;
   background-color: rgb(243, 245, 244);
-  @extend %flex_center;
+  @include flex_center;
   justify-content: flex-start;
   padding-left: 25px;
   overflow: hidden;
