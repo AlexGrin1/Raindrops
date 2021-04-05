@@ -1,157 +1,3 @@
-* {
-  margin: 0;
-  padding: 0;
-  font-family: "Patrick Hand", cursive;
-}
-
-.container {
-  display: flex;
-  max-width: 100vw;
-  height: 100vh;
-}
-
-.game {
-  font-weight: 300;
-  position: relative;
-  display: flex;
-  flex: 3;
-  background-image: url(../media/beach.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  overflow: hidden;
-}
-
-.start_logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.logo {
-  position: absolute;
-  top: 5%;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 5px;
-  margin-bottom: 20px;
-  font-size: 175px;
-  color: aqua;
-  animation: colors 15s infinite;
-}
-
-.control {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  background-color: rgba(2, 161, 95, 0.404);
-}
-
-.hidden {
-  display: none;
-}
-
-.score {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 40px;
-  border-radius: 0 0 30% 30%;
-  width: 80%;
-  height: 50px;
-  background-color: #f3f5f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  justify-content: flex-start;
-  padding-left: 25px;
-  overflow: hidden;
-}
-
-#score {
-  color: red;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  font-family: "Patrick Hand", cursive;
-}
-
-.container {
-  display: flex;
-  max-width: 100vw;
-  height: 100vh;
-}
-
-.game {
-  font-weight: 300;
-  position: relative;
-  display: flex;
-  flex: 3;
-  background-image: url(../media/beach.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  overflow: hidden;
-}
-
-.start_logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.logo {
-  position: absolute;
-  top: 5%;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 5px;
-  margin-bottom: 20px;
-  font-size: 175px;
-  color: aqua;
-  animation: colors 15s infinite;
-}
-
-.control {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  background-color: rgba(2, 161, 95, 0.404);
-}
-
-.hidden {
-  display: none;
-}
-
-.score {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 40px;
-  border-radius: 0 0 30% 30%;
-  width: 80%;
-  height: 50px;
-  background-color: #f3f5f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  justify-content: flex-start;
-  padding-left: 25px;
-  overflow: hidden;
-}
-
-#score {
-  color: red;
-}
-
 @keyframes button_go {
   50% {
     transform: scale(1.1);
@@ -219,6 +65,83 @@
     transform: scale(1);
   }
 }
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Patrick Hand", cursive;
+}
+
+.container {
+  display: flex;
+  max-width: 100vw;
+  height: 100vh;
+}
+
+.game {
+  font-weight: 300;
+  position: relative;
+  display: flex;
+  flex: 3;
+  background-image: url(../media/beach.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow: hidden;
+}
+
+.start_logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px;
+  margin-bottom: 20px;
+  font-size: 175px;
+  color: aqua;
+  animation: colors 15s infinite;
+}
+
+.control {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  background-color: rgba(2, 161, 95, 0.404);
+}
+
+.hidden {
+  display: none;
+}
+
+.score {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 40px;
+  border-radius: 0 0 30% 30%;
+  width: 80%;
+  height: 50px;
+  background-color: #f3f5f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 25px;
+  overflow: hidden;
+}
+
+#score {
+  color: red;
+}
+
 .started_block {
   display: flex;
 }
@@ -314,7 +237,7 @@
   margin: 0;
 }
 
-.controll_buttons {
+.control_buttons {
   border: 1px solid black;
   display: flex;
   justify-content: center;
@@ -322,7 +245,7 @@
   font-size: 40px;
   padding: 5px;
 }
-.controll_buttons:hover, .controll_buttons:active {
+.control_buttons:hover, .control_buttons:active {
   transform: scale(1.05);
   box-shadow: 0 0 25px #09e609;
   color: #09e609;
@@ -380,150 +303,6 @@
   background: url(../media/water-art.png);
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  font-family: "Patrick Hand", cursive;
-}
-
-.container {
-  display: flex;
-  max-width: 100vw;
-  height: 100vh;
-}
-
-.game {
-  font-weight: 300;
-  position: relative;
-  display: flex;
-  flex: 3;
-  background-image: url(../media/beach.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  overflow: hidden;
-}
-
-.start_logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.logo {
-  position: absolute;
-  top: 5%;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 5px;
-  margin-bottom: 20px;
-  font-size: 175px;
-  color: aqua;
-  animation: colors 15s infinite;
-}
-
-.control {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  background-color: rgba(2, 161, 95, 0.404);
-}
-
-.hidden {
-  display: none;
-}
-
-.score {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 40px;
-  border-radius: 0 0 30% 30%;
-  width: 80%;
-  height: 50px;
-  background-color: #f3f5f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  justify-content: flex-start;
-  padding-left: 25px;
-  overflow: hidden;
-}
-
-#score {
-  color: red;
-}
-
-@keyframes button_go {
-  50% {
-    transform: scale(1.1);
-  }
-}
-@keyframes colors {
-  0% {
-    color: aqua;
-    text-shadow: 0 0 15px #140375;
-  }
-  50% {
-    color: #00ff62;
-    text-shadow: 0 0 7px #03056e;
-  }
-  75% {
-    color: #00ff62;
-    text-shadow: 0 0 12px #00c9a7;
-  }
-  100% {
-    color: aqua;
-    text-shadow: 0 0 15px #140375;
-  }
-}
-@keyframes dropWater {
-  0% {
-    top: -120px;
-  }
-  100% {
-    top: 100%;
-  }
-}
-@keyframes deleted {
-  0% {
-    top: 50%;
-    left: 30%;
-    width: 70px;
-    height: 70px;
-    font-size: 25px;
-  }
-  40% {
-    top: 50%;
-    left: 50%;
-    width: 70px;
-    height: 70px;
-    font-size: 25px;
-    background-color: green;
-  }
-  100% {
-    top: 3%;
-    left: 85%;
-    width: 15px;
-    height: 15px;
-    font-size: 0px;
-    background-color: red;
-  }
-}
-@keyframes scale {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.5);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
 @media screen and (max-width: 1050px) {
   #delete,
 #enter,
@@ -547,7 +326,7 @@
     font-size: 36px;
   }
 
-  .controll_buttons {
+  .control_buttons {
     font-size: 36px;
   }
 
@@ -581,7 +360,7 @@
     font-size: 24px;
   }
 
-  .controll_buttons {
+  .control_buttons {
     font-size: 24px;
   }
 

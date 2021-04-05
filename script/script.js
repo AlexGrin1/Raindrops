@@ -18,6 +18,7 @@ const operators = ["+", "-", "*", "/"];
 let firstNumber;
 let secondNumber;
 let currentOperator;
+let expression;
 
 function startGame() {
   started.classList.add("hidden");
@@ -27,17 +28,28 @@ function startGame() {
   setInterval(trackPositionOfTop, 500);
 }
 
-function randomNumber(max, min = 0) {
-  let number1 = Math.floor(Math.random() * (max - min) + min);
-  let number2 = Math.floor(Math.random() * (max - min) + min);
-  return Math.floor(Math.random() * (max - min) + min);
+function randomOperator() {
+  return operators[randomNumber(0, 4)];
 }
 
-function randomOperator(max) {
-  let operator = operators[randomNumber(0, max)];
-  if (operator === "-") {
+function randomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+function randomExpression(min, max) {
+  firstNumber = Math.floor(Math.random() * (max - min) + min);
+  currentOperator = randomOperator();
+  if (currentOperator === "-") {
+    while (secondNumber > firstNumber) {
+      secondNumber = Math.floor(Math.random() * (max - min) + min);
+    }
   }
-  return operator;
+  if (currentOperator === "/") {
+    while (firstNumber % secondNumber !== 0) {
+      secondNumber = Math.floor(Math.random() * (max - min) + min);
+    }
+  }
+  expression = `${firstNumber} ${currentOperator} ${secondNumber}`;
+  return expression;
 }
 
 function trackPositionOfTop() {
@@ -55,9 +67,7 @@ function createBubble() {
   const newEl = document.createElement("div");
   newEl.className = "bubble";
 
-  newEl.textContent = `${randomNumber(0, 10)} ${randomOperator(
-    4
-  )} ${randomNumber(0, 10)}`;
+  newEl.textContent = randomExpression(0, 9);
   newEl.style.left = `${randomNumber(10, 90)}%`;
   gameArea.append(newEl);
   setTimeout(startGame, 5000);
@@ -66,7 +76,7 @@ function createBubble() {
 playButton.addEventListener("click", startGame);
 
 panelButtons.addEventListener("click", (event) => {
-  if (event.target.className === "controll_buttons number") {
+  if (event.target.className === "control_buttons number") {
     screenControl.textContent += event.target.textContent;
   }
   if (event.target.id === "enter") {

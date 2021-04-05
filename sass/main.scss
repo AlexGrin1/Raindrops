@@ -1,7 +1,7 @@
-@import "base";
-@import "component";
 @import "constants";
 @import "animation";
+@import "base";
+@import "component";
 
 @media screen and (max-width: $desktop) {
   #delete,
@@ -23,7 +23,7 @@
   .screen_panel_control {
     font-size: $size-text-big * 0.9;
   }
-  .controll_buttons {
+  .control_buttons {
     font-size: $size_text_button * 0.9;
   }
   .panel_control {
@@ -53,7 +53,7 @@
       font-size: $size_text_button * 0.6;
     }
   }
-  .controll_buttons {
+  .control_buttons {
     font-size: $size_text_button * 0.6;
   }
   .screen_panel_control {
