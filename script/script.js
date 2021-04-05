@@ -27,7 +27,7 @@ function startGame() {
   setInterval(trackPositionOfTop, 500);
 }
 
-function randomNumber(min = 0, max) {
+function randomNumber(max, min = 0) {
   let number1 = Math.floor(Math.random() * (max - min) + min);
   let number2 = Math.floor(Math.random() * (max - min) + min);
   return Math.floor(Math.random() * (max - min) + min);
