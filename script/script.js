@@ -12,20 +12,19 @@ const panelButtons = document.querySelector(".buttons_panel_control");
 const deleteButton = document.getElementById("delete");
 const clearButton = document.getElementById("clear");
 const enterButton = document.getElementById("enter");
-const bubble = document.querySelector("bubble");
-const operators = ["+", "-", "*", "/"];
 
-let firstNumber;
-let secondNumber;
-let currentOperator;
-let expression;
+const operators = ["+", "-", "*", "/"];
 
 function startGame() {
   started.classList.add("hidden");
   control.classList.remove("hidden");
   waterLine.classList.remove("hidden");
-  createBubble();
   setInterval(trackPositionOfTop, 500);
+  makeGameIteration();
+}
+
+function makeGameIteration() {
+  createBubble();
 }
 
 function randomOperator() {
@@ -35,69 +34,71 @@ function randomOperator() {
 function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
-function randomExpression(min, max) {
-  firstNumber = Math.floor(Math.random() * (max - min) + min);
-  currentOperator = randomOperator();
+function getRandomExpression(min, max) {
+  const currentOperator = randomOperator();
+  let firstNumber = randomNumber(min, max);
+  let secondNumber = randomNumber(min, max);
+  let result;
   if (currentOperator === "-") {
-    while (secondNumber > firstNumber) {
-      secondNumber = Math.floor(Math.random() * (max - min) + min);
-    }
+    secondNumber = randomNumber(min, firstNumber);
+    result = firstNumber - secondNumber;
   }
   if (currentOperator === "/") {
-    while (firstNumber % secondNumber !== 0) {
-      secondNumber = Math.floor(Math.random() * (max - min) + min);
-    }
+    result = randomNumber(min, max);
+    firstNumber = secondNumber * result;
   }
-  expression = `${firstNumber} ${currentOperator} ${secondNumber}`;
-  return expression;
+  if (currentOperator === "+") {
+    result = firstNumber + secondNumber;
+  }
+  if (currentOperator === "*") {
+    result = firstNumber * secondNumber;
+  }
+  const text = `${firstNumber} ${currentOperator} ${secondNumber}`;
+
+  return [text, result];
 }
 
 function trackPositionOfTop() {
-  let firstBubble = document.querySelector(".bubble");
-  console.log(firstBubble.getBoundingClientRect().top);
-  if (
-    firstBubble.getBoundingClientRect().top >=
-    document.documentElement.clientHeight - 200
-  ) {
+  const firstBubble = document.querySelector(".bubble");
+  if (firstBubble && firstBubble.getBoundingClientRect().top >= document.documentElement.clientHeight - 200) {
     firstBubble.remove();
   }
 }
 
 function createBubble() {
-  const newEl = document.createElement("div");
-  newEl.className = "bubble";
-
-  newEl.textContent = randomExpression(0, 9);
-  newEl.style.left = `${randomNumber(10, 90)}%`;
-  gameArea.append(newEl);
-  setTimeout(startGame, 5000);
+  const bubble = document.createElement("div");
+  const [text, result] = getRandomExpression(1, 9);
+  bubble.textContent = text;
+  bubble.dataset.result = result;
+  bubble.style.left = `${randomNumber(10, 90)}%`;
+  bubble.className = "bubble";
+  gameArea.append(bubble);
+  setTimeout(makeGameIteration, 5000);
 }
 
 playButton.addEventListener("click", startGame);
 
 panelButtons.addEventListener("click", (event) => {
+  const bubble = document.querySelector(".bubble");
   if (event.target.className === "control_buttons number") {
     screenControl.textContent += event.target.textContent;
   }
   if (event.target.id === "enter") {
-    if (
-      +screenControl.textContent ===
-      eval(document.querySelector(".bubble").textContent)
-    ) {
-      document.querySelector(".bubble").classList.add("correct_answer");
+    if (screenControl.textContent === bubble.dataset.result) {
+      bubble.classList.add("correct_answer");
       screenControl.textContent = null;
       setTimeout(() => {
-        document.querySelector(".bubble").remove();
-        score.textContent = +score.textContent + +10;
+        bubble.remove();
+        score.textContent = +score.textContent + 10;
         score.classList.add("scale_score");
         setTimeout(() => {
           score.classList.remove("scale_score");
         }, 500);
       }, 800);
     } else {
-      document.querySelector(".bubble").classList.add("bad_answer");
+      bubble.classList.add("bad_answer");
       setTimeout(() => {
-        document.querySelector(".bubble").classList.remove("bad_answer");
+        bubble.classList.remove("bad_answer");
       }, 200);
       screenControl.textContent = null;
     }
