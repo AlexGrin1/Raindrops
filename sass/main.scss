@@ -15,6 +15,16 @@
   .logo {
     font-size: $size_logo * 0.7;
   }
+  .modal_window {
+    width: 550px;
+    height: 350px;
+  }
+  .game_over {
+    font-size: $size_logo * 0.7;
+  }
+  .final_score {
+    font-size: $size_text_button * 0.8;
+  }
   .buttons_block {
     button {
       font-size: $size_text_button * 0.8;
@@ -48,6 +58,16 @@
   .logo {
     font-size: $size_logo * 0.5;
   }
+  .modal_window {
+    width: 400px;
+    height: 250px;
+  }
+  .game_over {
+    font-size: $size_logo * 0.5;
+  }
+  .final_score {
+    font-size: $size_text_button * 0.6;
+  }
   .buttons_block {
     button {
       font-size: $size_text_button * 0.6;
@@ -74,6 +94,16 @@
   }
   .logo {
     font-size: $size_logo * 0.3;
+  }
+  .modal_window {
+    width: 240px;
+    height: 150px;
+  }
+  .game_over {
+    font-size: $size_logo * 0.3;
+  }
+  .final_score {
+    font-size: $size_text_button * 0.3;
   }
   .panel_control {
     opacity: 0.6;

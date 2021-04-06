@@ -1,10 +1,11 @@
 $color_logo: yellow;
+$size: 100px;
 $backgr_start_button: rgba(2, 161, 95, 0.404);
 $color_start_button: rgba(202, 202, 202, 0.637);
-$size_logo: 175px;
-$size_text_button: 40px;
-$size_text_big: 40px;
-$size_text_small: 25px;
+$size_logo: $size * 1.75;
+$size_text_button: $size * 0.4;
+$size_text_big: $size * 0.4;
+$size_text_small: $size * 0.25;
 $desktop: 1050px;
 $tablet: 800px;
 $mobile: 400px;

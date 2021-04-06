@@ -7,8 +7,7 @@
   flex-direction: column;
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translateX(-50%);
+  @include center_position;
   button:first-child {
     animation: button_go 3s infinite;
     color: white;
@@ -130,7 +129,43 @@
 .scale_score {
   animation: scale 0.5s;
 }
+.modal_window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  width: 800px;
+  height: 500px;
+  @include flex_center;
+  flex-direction: column;
+  background-color: rgb(82, 114, 218);
+  box-shadow: 0 0 10px red;
+  color: white;
+  border-radius: 5%;
+  z-index: 1;
+}
+.game_over {
+  text-shadow: 0 0 20px red;
+  font-size: $size_logo;
+  margin: 10px;
+}
+.final_score {
+  font-size: $size_text_big;
+  margin: 5px;
+}
 
+.try_again {
+  padding: 5px;
+  background-color: rgba(255, 0, 0, 0.589);
+  border-radius: 10px;
+  animation: button_go 3s infinite;
+  &:hover {
+    cursor: pointer;
+    background-color: red;
+    text-shadow: 0 0 1px rgb(255, 255, 255);
+    box-shadow: 0 0 10px white;
+  }
+}
 .water_line {
   position: absolute;
   bottom: 0;
