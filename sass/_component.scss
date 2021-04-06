@@ -81,17 +81,14 @@
   overflow: hidden;
 }
 .buttons_panel_control {
-  margin: 20px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 60px);
   margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(60px, 1fr));
+  grid-template-rows: repeat(4, 60px);
 }
 .control_buttons {
   border: 1px solid black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex_center;
   font-size: $size_text_button;
   padding: 5px;
   &:hover,

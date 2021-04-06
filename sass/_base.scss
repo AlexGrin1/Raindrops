@@ -58,12 +58,13 @@
   @include center_position;
   font-size: $size_text_button;
   border-radius: 0 0 30% 30%;
-  width: 80%;
+  width: 90%;
   height: 50px;
   background-color: rgb(243, 245, 244);
   @include flex_center;
   justify-content: flex-start;
-  padding-left: 25px;
+  padding-left: 15px;
+  padding-bottom: 7px;
   overflow: hidden;
 }
 #score {

@@ -52,8 +52,12 @@
   #clear {
     font-size: $size-text-small * 0.6;
   }
+  .buttons_panel_control {
+    grid-template-columns: repeat(4, 1fr);
+  }
   .score {
     font-size: $size_text_button * 0.6;
+    @include flex_center;
   }
   .logo {
     font-size: $size_logo * 0.5;
@@ -86,6 +90,9 @@
   }
   .panel_control {
     max-width: 184px;
+  }
+  .correct_answer {
+    animation: deleted_on_tablet 1s;
   }
 }
 @media screen and (max-width: $mobile) {

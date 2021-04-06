@@ -74,31 +74,28 @@ function getRandomExpression(min, max) {
 
 function trackPositionOfTop() {
   const firstBubble = document.querySelector(".bubble");
-  if (
-    firstBubble &&
-    firstBubble.getBoundingClientRect().top >=
-      document.documentElement.clientHeight - 200
-  ) {
+  if (firstBubble && firstBubble.getBoundingClientRect().top >= document.documentElement.clientHeight - 200) {
     firstBubble.remove();
     health = health - 1;
-    if (health < 1) {
-      finalScore.textContent = score.textContent;
-      gameOverWindow.classList.add("modal_window");
-      stopGame();
-      tryAgain.addEventListener("click", () => {
-        gameOverWindow.classList.remove("modal_window");
-      });
-      // if (
-      //   localStorage.getItem("bestResult") < score.textContent ||
-      //   localStorage.getItem("bestResult") === null
-      // ) {
-      //   localStorage.setItem("bestResult", score.textContent);
-      //   bestResult.textContent = score.textContent;
-      // }
-      // if (localStorage.getItem("bestResult") >= score.textContent) {
-      //   bestResult.textContent = localStorage.getItem("bestResult");
-      // }
-    }
+    // if (
+    //   localStorage.getItem("bestResult") < score.textContent ||
+    //   localStorage.getItem("bestResult") === null
+    // ) {
+    //   localStorage.setItem("bestResult", score.textContent);
+    //   bestResult.textContent = score.textContent;
+    // }
+    // if (localStorage.getItem("bestResult") >= score.textContent) {
+    //   bestResult.textContent = localStorage.getItem("bestResult");
+    // }
+  }
+  if (health < 1) {
+    finalScore.textContent = score.textContent;
+    gameOverWindow.classList.add("modal_window");
+    stopGame();
+    tryAgain.addEventListener("click", () => {
+      gameOverWindow.classList.remove("modal_window");
+      health = 3;
+    });
   }
 }
 
@@ -170,10 +167,18 @@ document.addEventListener("keydown", (event) => {
           }, 500);
         }, 800);
       } else {
+        const starIcon = document.querySelector(".star_icon");
         bubble.classList.add("bad_answer");
+        starIcon.classList.add("bad_answer");
+        health -= 1;
+        console.log(health);
+        // starIcon.remove();
         setTimeout(() => {
           bubble.classList.remove("bad_answer");
+          starIcon.classList.remove("bad_answer");
+          starIcon.style.filter = "grayscale(100%)";
         }, 200);
+        starIcon.classList.remove("star_icon");
         screenControl.textContent = null;
       }
     }
