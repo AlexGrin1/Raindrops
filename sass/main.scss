@@ -41,6 +41,19 @@
   }
 }
 @media screen and (max-width: $tablet) {
+  .info_game {
+    position: relative;
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 30px;
+    border-radius: 0 0 10px 10px;
+    font-size: $size_text_small * 0.7;
+  }
+  .buttons_panel_control {
+    grid-template-columns: repeat(4, minmax(40px, 1fr));
+    grid-template-rows: repeat(4, 40px);
+  }
   .control {
     position: fixed;
     right: 0;

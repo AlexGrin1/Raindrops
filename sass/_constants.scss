@@ -9,3 +9,6 @@ $size_text_small: $size * 0.25;
 $desktop: 1050px;
 $tablet: 800px;
 $mobile: 400px;
+:root {
+  --animation-duration: 10s;
+}

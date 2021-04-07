@@ -9,6 +9,7 @@ const finalScore = document.querySelector(".final_score span");
 const bestResult = document.querySelector(
   ".final_score:nth-last-child(2) span"
 );
+
 const tryAgain = document.querySelector(".try_again");
 const starIcon = document.querySelectorAll("img");
 const screenControl = document.querySelector(".screen_panel_control");
@@ -22,7 +23,7 @@ let health = 3;
 let points = 10;
 
 function startGame() {
-  intervalDrops = 6000;
+  intervalDrops = 5500;
   points = 10;
   score.textContent = 0;
   started.classList.add("hidden");
@@ -42,6 +43,34 @@ function stopGame() {
 function makeGameIteration() {
   if (health > 0) {
     createBubble();
+    if (score.textContent > 50) {
+      const allBubble = document.querySelectorAll(".bubble");
+      const infoGame = document.querySelector(".info_game");
+      if (50 < score.textContent < 150) {
+        allBubble.forEach((el) => {
+          el.style.setProperty("--animation-duration", "8s");
+        });
+        infoGame.style.backgroundColor = "green";
+        infoGame.textContent = "LOW";
+        console.log(8);
+      }
+      if (score.textContent > 150) {
+        allBubble.forEach((el) => {
+          el.style.setProperty("--animation-duration", "6s");
+        });
+        infoGame.style.backgroundColor = "orange";
+        infoGame.textContent = "MEDIUM";
+        console.log(6);
+      }
+      if (score.textContent > 300) {
+        allBubble.forEach((el) => {
+          el.style.setProperty("--animation-duration", "4s");
+        });
+        infoGame.style.backgroundColor = "red";
+        infoGame.textContent = "HARD";
+        console.log(4);
+      }
+    }
   }
 }
 
@@ -98,7 +127,6 @@ function trackPositionOfTop() {
       localStorage.getItem("bestResult") < score.textContent ||
       localStorage.getItem("bestResult") === null
     ) {
-      console.log("ttt");
       localStorage.setItem("bestResult", score.textContent);
       bestResult.textContent = score.textContent;
     }

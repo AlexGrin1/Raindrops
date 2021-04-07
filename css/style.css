@@ -1,3 +1,7 @@
+:root {
+  --animation-duration: 10s;
+}
+
 @keyframes button_go {
   50% {
     transform: scale(1.1);
@@ -156,6 +160,7 @@
   width: 90%;
   height: 50px;
   background-color: #f3f5f4;
+  box-shadow: 0 0 10px red;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -333,6 +338,22 @@
   filter: grayscale(100%);
 }
 
+.info_game {
+  position: absolute;
+  bottom: 0;
+  width: 100px;
+  color: white;
+  height: 40px;
+  font-size: 25px;
+  border-radius: 25px 25px 0 0;
+  background-color: #4bc74b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .game_over {
   text-shadow: 0 0 20px red;
   font-size: 175px;
@@ -355,39 +376,6 @@
   background-color: red;
   text-shadow: 0 0 1px white;
   box-shadow: 0 0 10px white;
-}
-
-.water_line {
-  background: #042b3a;
-  filter: saturate(20);
-  border-radius: 15% 25% 0 0;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 120%;
-  height: 15%;
-  animation: water_line 10s linear infinite;
-}
-
-@keyframes water_line {
-  0% {
-    border-radius: 15% 25% 0 0;
-    height: 15%;
-  }
-  25% {
-    border-radius: 20% 80% 0 0;
-    height: 10%;
-  }
-  60% {
-    border-radius: 80% 20% 0 0;
-    height: 12%;
-  }
-  100% {
-    border-radius: 15% 25% 0 0;
-  }
-}
-:root {
-  --animation-duration: 10s;
 }
 
 @media screen and (max-width: 1050px) {
@@ -435,6 +423,21 @@
   }
 }
 @media screen and (max-width: 800px) {
+  .info_game {
+    position: relative;
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 30px;
+    border-radius: 0 0 10px 10px;
+    font-size: 17.5px;
+  }
+
+  .buttons_panel_control {
+    grid-template-columns: repeat(4, minmax(40px, 1fr));
+    grid-template-rows: repeat(4, 40px);
+  }
+
   .control {
     position: fixed;
     right: 0;

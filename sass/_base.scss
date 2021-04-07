@@ -61,6 +61,7 @@
   width: 90%;
   height: 50px;
   background-color: rgb(243, 245, 244);
+  box-shadow: 0 0 10px red;
   @include flex_center;
   justify-content: flex-start;
   padding-left: 15px;
