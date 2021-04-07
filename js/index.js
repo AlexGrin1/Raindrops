@@ -19,10 +19,11 @@ const enterButton = document.getElementById("enter");
 const operators = ["+", "-", "*", "/"];
 let intervalDrops;
 let health = 3;
+let points = 10;
 
 function startGame() {
   intervalDrops = 6000;
-  //health = 3;
+  points = 10;
   score.textContent = 0;
   started.classList.add("hidden");
   control.classList.remove("hidden");
@@ -93,11 +94,11 @@ function trackPositionOfTop() {
       gameOverWindow.classList.remove("modal_window");
       health = 3;
     });
-    console.log(localStorage.getItem("bestResult"));
     if (
       localStorage.getItem("bestResult") < score.textContent ||
       localStorage.getItem("bestResult") === null
     ) {
+      console.log("ttt");
       localStorage.setItem("bestResult", score.textContent);
       bestResult.textContent = score.textContent;
     }
@@ -145,7 +146,8 @@ panelButtons.addEventListener("click", (event) => {
       screenControl.textContent = null;
       setTimeout(() => {
         bubble.remove();
-        score.textContent = +score.textContent + 10;
+        score.textContent = +score.textContent + points;
+        points++;
         score.classList.add("scale_score");
         setTimeout(() => {
           score.classList.remove("scale_score");
@@ -165,7 +167,6 @@ panelButtons.addEventListener("click", (event) => {
 
 document.addEventListener("keydown", (event) => {
   const bubble = document.querySelector(".bubble");
-  // console.log(event.key);
   const valid = event.key.match(/^[0-9,Delete,Backspace,Enter]/g) !== null;
 
   if (valid) {
@@ -179,7 +180,8 @@ document.addEventListener("keydown", (event) => {
         screenControl.textContent = null;
         setTimeout(() => {
           bubble.remove();
-          score.textContent = +score.textContent + 10;
+          score.textContent = +score.textContent + points;
+          points++;
           score.classList.add("scale_score");
           setTimeout(() => {
             score.classList.remove("scale_score");

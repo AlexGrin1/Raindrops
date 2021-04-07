@@ -167,6 +167,35 @@
   }
 }
 
+.water_line {
+  background: rgb(4, 43, 58);
+  filter: saturate(20);
+  border-radius: 15% 25% 0 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 120%;
+  height: 15%;
+  animation: water_line 10s linear infinite;
+}
+@keyframes water_line {
+  0% {
+    border-radius: 15% 25% 0 0;
+    height: 15%;
+  }
+  25% {
+    border-radius: 20% 80% 0 0;
+    height: 10%;
+  }
+  60% {
+    border-radius: 80% 20% 0 0;
+    height: 12%;
+  }
+  100% {
+    border-radius: 15% 25% 0 0;
+  }
+}
+
 :root {
   --animation-duration: 10s;
 }
