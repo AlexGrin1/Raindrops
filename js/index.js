@@ -4,35 +4,38 @@ const started = document.getElementById("startedBlock");
 const control = document.querySelector(".control");
 const gameArea = document.querySelector(".game");
 const score = document.getElementById("score");
-const waterLine = document.querySelector(".water_line");
 const gameOverWindow = document.getElementById("game_over_window");
 const finalScore = document.querySelector(".final_score span");
-const bestResult = document.querySelector(".final_score:last-child span");
+const bestResult = document.querySelector(
+  ".final_score:nth-last-child(2) span"
+);
 const tryAgain = document.querySelector(".try_again");
-
+const starIcon = document.querySelectorAll("img");
 const screenControl = document.querySelector(".screen_panel_control");
 const panelButtons = document.querySelector(".buttons_panel_control");
-
 const deleteButton = document.getElementById("delete");
 const clearButton = document.getElementById("clear");
 const enterButton = document.getElementById("enter");
 const operators = ["+", "-", "*", "/"];
-
+let intervalDrops;
 let health = 3;
 
 function startGame() {
-  health = 3;
+  intervalDrops = 6000;
+  //health = 3;
+  score.textContent = 0;
   started.classList.add("hidden");
   control.classList.remove("hidden");
-  waterLine.classList.remove("hidden");
   setInterval(trackPositionOfTop, 500);
   makeGameIteration();
 }
 function stopGame() {
   gameArea.querySelectorAll(".bubble").forEach((el) => el.remove());
+  starIcon.forEach((el) => {
+    el.classList.remove("star_icon");
+  });
   started.classList.remove("hidden");
   control.classList.add("hidden");
-  waterLine.classList.add("hidden");
 }
 
 function makeGameIteration() {
@@ -74,19 +77,13 @@ function getRandomExpression(min, max) {
 
 function trackPositionOfTop() {
   const firstBubble = document.querySelector(".bubble");
-  if (firstBubble && firstBubble.getBoundingClientRect().top >= document.documentElement.clientHeight - 200) {
+  if (
+    firstBubble &&
+    firstBubble.getBoundingClientRect().top >=
+      document.documentElement.clientHeight - 200
+  ) {
     firstBubble.remove();
-    health = health - 1;
-    // if (
-    //   localStorage.getItem("bestResult") < score.textContent ||
-    //   localStorage.getItem("bestResult") === null
-    // ) {
-    //   localStorage.setItem("bestResult", score.textContent);
-    //   bestResult.textContent = score.textContent;
-    // }
-    // if (localStorage.getItem("bestResult") >= score.textContent) {
-    //   bestResult.textContent = localStorage.getItem("bestResult");
-    // }
+    fail();
   }
   if (health < 1) {
     finalScore.textContent = score.textContent;
@@ -96,6 +93,17 @@ function trackPositionOfTop() {
       gameOverWindow.classList.remove("modal_window");
       health = 3;
     });
+    console.log(localStorage.getItem("bestResult"));
+    if (
+      localStorage.getItem("bestResult") < score.textContent ||
+      localStorage.getItem("bestResult") === null
+    ) {
+      localStorage.setItem("bestResult", score.textContent);
+      bestResult.textContent = score.textContent;
+    }
+    if (localStorage.getItem("bestResult") >= score.textContent) {
+      bestResult.textContent = localStorage.getItem("bestResult");
+    }
   }
 }
 
@@ -107,7 +115,20 @@ function createBubble() {
   bubble.style.left = `${randomNumber(10, 90)}%`;
   bubble.className = "bubble";
   gameArea.append(bubble);
-  setTimeout(makeGameIteration, 2000);
+  setTimeout(makeGameIteration, intervalDrops);
+}
+
+function fail() {
+  const bubble = document.querySelector(".bubble");
+  bubble.classList.add("bad_answer");
+  starIcon[health - 1].classList.add("bad_answer");
+  setTimeout(() => {
+    bubble.classList.remove("bad_answer");
+    starIcon[health - 1].classList.remove("bad_answer");
+    starIcon[health - 1].classList.add("star_icon");
+    health -= 1;
+  }, 200);
+  screenControl.textContent = null;
 }
 
 playButton.addEventListener("click", startGame);
@@ -118,6 +139,7 @@ panelButtons.addEventListener("click", (event) => {
     screenControl.textContent += event.target.textContent;
   }
   if (event.target.id === "enter") {
+    intervalDrops -= 100;
     if (screenControl.textContent === bubble.dataset.result) {
       bubble.classList.add("correct_answer");
       screenControl.textContent = null;
@@ -130,11 +152,7 @@ panelButtons.addEventListener("click", (event) => {
         }, 500);
       }, 800);
     } else {
-      bubble.classList.add("bad_answer");
-      setTimeout(() => {
-        bubble.classList.remove("bad_answer");
-      }, 200);
-      screenControl.textContent = null;
+      fail();
     }
   }
   if (event.target.id === "clear") {
@@ -155,6 +173,7 @@ document.addEventListener("keydown", (event) => {
       screenControl.textContent += event.key;
     }
     if (event.key === "Enter") {
+      intervalDrops -= 100;
       if (screenControl.textContent === bubble.dataset.result) {
         bubble.classList.add("correct_answer");
         screenControl.textContent = null;
@@ -167,19 +186,7 @@ document.addEventListener("keydown", (event) => {
           }, 500);
         }, 800);
       } else {
-        const starIcon = document.querySelector(".star_icon");
-        bubble.classList.add("bad_answer");
-        starIcon.classList.add("bad_answer");
-        health -= 1;
-        console.log(health);
-        // starIcon.remove();
-        setTimeout(() => {
-          bubble.classList.remove("bad_answer");
-          starIcon.classList.remove("bad_answer");
-          starIcon.style.filter = "grayscale(100%)";
-        }, 200);
-        starIcon.classList.remove("star_icon");
-        screenControl.textContent = null;
+        fail();
       }
     }
     if (event.key === "Delete") {

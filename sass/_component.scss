@@ -141,6 +141,9 @@
   border-radius: 5%;
   z-index: 1;
 }
+.star_icon {
+  filter: grayscale(100%);
+}
 .game_over {
   text-shadow: 0 0 20px red;
   font-size: $size_logo;
@@ -162,22 +165,6 @@
     text-shadow: 0 0 1px rgb(255, 255, 255);
     box-shadow: 0 0 10px white;
   }
-}
-.water_line {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 150px;
-  z-index: 10;
-}
-
-.wave {
-  height: 200px;
-  background: url(../media/water-art.png);
-}
-.wave:nth-last-of-type(2) {
-  height: 200px;
-  background: url(../media/water-art.png);
 }
 
 :root {

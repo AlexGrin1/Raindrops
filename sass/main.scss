@@ -90,6 +90,7 @@
   }
   .panel_control {
     max-width: 184px;
+    opacity: 0.6;
   }
   .correct_answer {
     animation: deleted_on_tablet 1s;
@@ -112,9 +113,7 @@
   .final_score {
     font-size: $size_text_button * 0.3;
   }
-  .panel_control {
-    opacity: 0.6;
-  }
+
   .screen_panel_control {
     font-size: $size-text-big * 0.4;
   }
