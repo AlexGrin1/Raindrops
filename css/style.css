@@ -341,17 +341,25 @@
 .info_game {
   position: absolute;
   bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.level,
+.difficulty_expression {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100px;
   color: white;
   height: 40px;
   font-size: 25px;
   border-radius: 25px 25px 0 0;
   background-color: #4bc74b;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-right: 5px;
 }
 
 .game_over {
@@ -427,6 +435,11 @@
     position: relative;
     top: 0;
     right: 0;
+    justify-content: flex-start;
+  }
+
+  .level,
+.difficulty_expression {
     width: 60px;
     height: 30px;
     border-radius: 0 0 10px 10px;

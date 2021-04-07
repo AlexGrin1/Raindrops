@@ -6,9 +6,7 @@ const gameArea = document.querySelector(".game");
 const score = document.getElementById("score");
 const gameOverWindow = document.getElementById("game_over_window");
 const finalScore = document.querySelector(".final_score span");
-const bestResult = document.querySelector(
-  ".final_score:nth-last-child(2) span"
-);
+const bestResult = document.querySelector(".final_score:nth-last-child(2) span");
 
 const tryAgain = document.querySelector(".try_again");
 const starIcon = document.querySelectorAll("img");
@@ -21,10 +19,12 @@ const operators = ["+", "-", "*", "/"];
 let intervalDrops;
 let health = 3;
 let points = 10;
+let maxNumber = 5;
 
 function startGame() {
   intervalDrops = 5500;
   points = 10;
+  maxNumber = 5;
   score.textContent = 0;
   started.classList.add("hidden");
   control.classList.remove("hidden");
@@ -43,33 +43,45 @@ function stopGame() {
 function makeGameIteration() {
   if (health > 0) {
     createBubble();
-    if (score.textContent > 50) {
-      const allBubble = document.querySelectorAll(".bubble");
-      const infoGame = document.querySelector(".info_game");
-      if (50 < score.textContent < 150) {
-        allBubble.forEach((el) => {
-          el.style.setProperty("--animation-duration", "8s");
-        });
-        infoGame.style.backgroundColor = "green";
-        infoGame.textContent = "LOW";
-        console.log(8);
-      }
-      if (score.textContent > 150) {
-        allBubble.forEach((el) => {
-          el.style.setProperty("--animation-duration", "6s");
-        });
-        infoGame.style.backgroundColor = "orange";
-        infoGame.textContent = "MEDIUM";
-        console.log(6);
-      }
-      if (score.textContent > 300) {
-        allBubble.forEach((el) => {
-          el.style.setProperty("--animation-duration", "4s");
-        });
-        infoGame.style.backgroundColor = "red";
-        infoGame.textContent = "HARD";
-        console.log(4);
-      }
+    const allBubble = document.querySelectorAll(".bubble");
+    //const infoLevel = document.querySelector(".info_game");
+    const infoLevel = document.querySelector(".level");
+    const infoMaxNumber = document.querySelector(".difficulty_expression span");
+    if (score.textContent < 50) {
+      allBubble.forEach((el) => {
+        el.style.setProperty("--animation-duration", "10s");
+      });
+      infoLevel.style.backgroundColor = "Lime";
+      infoLevel.textContent = "EASY";
+      infoMaxNumber.textContent = maxNumber;
+    }
+    if (score.textContent > 50 && score.textContent <= 150) {
+      allBubble.forEach((el) => {
+        el.style.setProperty("--animation-duration", "8s");
+      });
+      infoLevel.style.backgroundColor = "green";
+      infoLevel.textContent = "LOW";
+      maxNumber = 7;
+      infoMaxNumber.textContent = maxNumber;
+    }
+    if (score.textContent > 150 && score.textContent <= 300) {
+      allBubble.forEach((el) => {
+        el.style.setProperty("--animation-duration", "6s");
+      });
+      infoLevel.style.backgroundColor = "orange";
+      infoLevel.textContent = "MEDIUM";
+      maxNumber = 9;
+      infoMaxNumber.textContent = maxNumber;
+    }
+    if (score.textContent > 300) {
+      allBubble.forEach((el) => {
+        el.style.setProperty("--animation-duration", "4s");
+      });
+      infoLevel.style.backgroundColor = "red";
+      infoLevel.textContent = "HARD";
+      maxNumber++;
+      console.log(maxNumber);
+      infoMaxNumber.textContent = maxNumber;
     }
   }
 }
@@ -78,20 +90,20 @@ function randomOperator() {
   return operators[randomNumber(0, 4)];
 }
 
-function randomNumber(min, max) {
+function randomNumber(max, min = 1) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 function getRandomExpression(min, max) {
   const currentOperator = randomOperator();
-  let firstNumber = randomNumber(min, max);
-  let secondNumber = randomNumber(min, max);
+  let firstNumber = randomNumber(maxNumber);
+  let secondNumber = randomNumber(maxNumber);
   let result;
   if (currentOperator === "-") {
     secondNumber = randomNumber(min, firstNumber);
     result = firstNumber - secondNumber;
   }
   if (currentOperator === "/") {
-    result = randomNumber(min, max);
+    result = randomNumber(maxNumber);
     firstNumber = secondNumber * result;
   }
   if (currentOperator === "+") {
@@ -107,11 +119,7 @@ function getRandomExpression(min, max) {
 
 function trackPositionOfTop() {
   const firstBubble = document.querySelector(".bubble");
-  if (
-    firstBubble &&
-    firstBubble.getBoundingClientRect().top >=
-      document.documentElement.clientHeight - 200
-  ) {
+  if (firstBubble && firstBubble.getBoundingClientRect().top >= document.documentElement.clientHeight - 200) {
     firstBubble.remove();
     fail();
   }
@@ -123,10 +131,7 @@ function trackPositionOfTop() {
       gameOverWindow.classList.remove("modal_window");
       health = 3;
     });
-    if (
-      localStorage.getItem("bestResult") < score.textContent ||
-      localStorage.getItem("bestResult") === null
-    ) {
+    if (localStorage.getItem("bestResult") < score.textContent || localStorage.getItem("bestResult") === null) {
       localStorage.setItem("bestResult", score.textContent);
       bestResult.textContent = score.textContent;
     }
@@ -201,7 +206,7 @@ document.addEventListener("keydown", (event) => {
     if (event.key.match(/^[0-9]/g) !== null) {
       screenControl.textContent += event.key;
     }
-    if (event.key === "Enter") {
+    if (event.key === "Enter" && screenControl.textContent !== "") {
       intervalDrops -= 100;
       if (screenControl.textContent === bubble.dataset.result) {
         bubble.classList.add("correct_answer");
