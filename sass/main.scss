@@ -94,6 +94,7 @@
     font-size: $size_text_button * 0.6;
   }
   .screen_panel_control {
+    height: 40px;
     font-size: $size-text-big * 0.6;
   }
   .score {
@@ -115,9 +116,6 @@
   }
 }
 @media screen and (max-width: $mobile) {
-  .screen_panel_control {
-    height: 50px;
-  }
   .logo {
     font-size: $size_logo * 0.3;
   }
@@ -133,7 +131,7 @@
   }
 
   .screen_panel_control {
-    font-size: $size-text-big * 0.4;
+    font-size: $size-text-big * 0.5;
   }
   .bubble {
     font-size: $size_text_small * 0.5;
