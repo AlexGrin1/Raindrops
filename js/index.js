@@ -40,48 +40,34 @@ function stopGame() {
   control.classList.add("hidden");
 }
 
+function changeLevel(color, name, time, max) {
+  const allBubble = document.querySelectorAll(".bubble");
+  const infoLevel = document.querySelector(".level");
+  const infoMaxNumber = document.querySelector(".difficulty_expression span");
+  // allBubble.forEach((el) => {
+  //   el.style.setProperty("--animation-duration", `${time}s`);
+  // });
+  document.documentElement.style.setProperty("--animation-duration", `${time}s`);
+  infoLevel.style.backgroundColor = color;
+  infoLevel.textContent = name;
+  maxNumber = max;
+  infoMaxNumber.textContent = maxNumber;
+}
+
 function makeGameIteration() {
   if (health > 0) {
     createBubble();
-    const allBubble = document.querySelectorAll(".bubble");
-    //const infoLevel = document.querySelector(".info_game");
-    const infoLevel = document.querySelector(".level");
-    const infoMaxNumber = document.querySelector(".difficulty_expression span");
     if (score.textContent < 50) {
-      allBubble.forEach((el) => {
-        el.style.setProperty("--animation-duration", "10s");
-      });
-      infoLevel.style.backgroundColor = "Lime";
-      infoLevel.textContent = "EASY";
-      infoMaxNumber.textContent = maxNumber;
+      changeLevel("Lime", "EASY", "10", 5);
     }
     if (score.textContent > 50 && score.textContent <= 150) {
-      allBubble.forEach((el) => {
-        el.style.setProperty("--animation-duration", "8s");
-      });
-      infoLevel.style.backgroundColor = "green";
-      infoLevel.textContent = "LOW";
-      maxNumber = 7;
-      infoMaxNumber.textContent = maxNumber;
+      changeLevel("green", "LOW", "8", 7);
     }
     if (score.textContent > 150 && score.textContent <= 300) {
-      allBubble.forEach((el) => {
-        el.style.setProperty("--animation-duration", "6s");
-      });
-      infoLevel.style.backgroundColor = "orange";
-      infoLevel.textContent = "MEDIUM";
-      maxNumber = 9;
-      infoMaxNumber.textContent = maxNumber;
+      changeLevel("orange", "MEDIUM", "6", 9);
     }
     if (score.textContent > 300) {
-      allBubble.forEach((el) => {
-        el.style.setProperty("--animation-duration", "4s");
-      });
-      infoLevel.style.backgroundColor = "red";
-      infoLevel.textContent = "HARD";
-      maxNumber++;
-      console.log(maxNumber);
-      infoMaxNumber.textContent = maxNumber;
+      changeLevel("red", "HARD", "4", maxNumber + 1);
     }
   }
 }
@@ -93,17 +79,17 @@ function randomOperator() {
 function randomNumber(max, min = 1) {
   return Math.floor(Math.random() * (max - min) + min);
 }
-function getRandomExpression(min, max) {
+function getRandomExpression(max, min = 0) {
   const currentOperator = randomOperator();
-  let firstNumber = randomNumber(maxNumber);
-  let secondNumber = randomNumber(maxNumber);
+  let firstNumber = randomNumber(max);
+  let secondNumber = randomNumber(max);
   let result;
   if (currentOperator === "-") {
     secondNumber = randomNumber(min, firstNumber);
     result = firstNumber - secondNumber;
   }
   if (currentOperator === "/") {
-    result = randomNumber(maxNumber);
+    result = randomNumber(max);
     firstNumber = secondNumber * result;
   }
   if (currentOperator === "+") {
@@ -143,7 +129,7 @@ function trackPositionOfTop() {
 
 function createBubble() {
   const bubble = document.createElement("div");
-  const [text, result] = getRandomExpression(1, 9);
+  const [text, result] = getRandomExpression(maxNumber);
   bubble.textContent = text;
   bubble.dataset.result = result;
   bubble.style.left = `${randomNumber(10, 90)}%`;
@@ -167,14 +153,11 @@ function fail() {
 
 playButton.addEventListener("click", startGame);
 
-panelButtons.addEventListener("click", (event) => {
+function enterEvent(event, condition, eventCondition) {
   const bubble = document.querySelector(".bubble");
-  if (event.target.className === "control_buttons number") {
-    screenControl.textContent += event.target.textContent;
-  }
-  if (event.target.id === "enter") {
+  if (eventCondition) {
     intervalDrops -= 100;
-    if (screenControl.textContent === bubble.dataset.result) {
+    if (condition) {
       bubble.classList.add("correct_answer");
       screenControl.textContent = null;
       setTimeout(() => {
@@ -196,39 +179,27 @@ panelButtons.addEventListener("click", (event) => {
   if (event.target.id === "delete") {
     screenControl.textContent = screenControl.textContent.slice(0, -1);
   }
+}
+
+panelButtons.addEventListener("click", (event) => {
+  const bubble = document.querySelector(".bubble");
+  if (event.target.className === "control_buttons number") {
+    screenControl.textContent += event.target.textContent;
+  }
+  enterEvent(event, screenControl.textContent === bubble.dataset.result, event.target.id === "enter");
 });
 
 document.addEventListener("keydown", (event) => {
   const bubble = document.querySelector(".bubble");
   const valid = event.key.match(/^[0-9,Delete,Backspace,Enter]/g) !== null;
-
   if (valid) {
     if (event.key.match(/^[0-9]/g) !== null) {
       screenControl.textContent += event.key;
     }
-    if (event.key === "Enter" && screenControl.textContent !== "") {
-      intervalDrops -= 100;
-      if (screenControl.textContent === bubble.dataset.result) {
-        bubble.classList.add("correct_answer");
-        screenControl.textContent = null;
-        setTimeout(() => {
-          bubble.remove();
-          score.textContent = +score.textContent + points;
-          points++;
-          score.classList.add("scale_score");
-          setTimeout(() => {
-            score.classList.remove("scale_score");
-          }, 500);
-        }, 800);
-      } else {
-        fail();
-      }
-    }
-    if (event.key === "Delete") {
-      screenControl.textContent = null;
-    }
-    if (event.key === "Backspace") {
-      screenControl.textContent = screenControl.textContent.slice(0, -1);
-    }
+    enterEvent(
+      event,
+      screenControl.textContent === bubble.dataset.result,
+      event.key === "Enter" && screenControl.textContent !== ""
+    );
   }
 });
