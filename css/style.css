@@ -315,6 +315,11 @@
   animation: scale 0.5s;
 }
 
+.scale_enter {
+  box-shadow: 0 0 4px #00ff80;
+  animation: scale 1s;
+}
+
 .modal_window {
   position: absolute;
   top: 50%;

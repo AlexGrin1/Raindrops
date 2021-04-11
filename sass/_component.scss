@@ -126,6 +126,10 @@
 .scale_score {
   animation: scale 0.5s;
 }
+.scale_enter {
+  box-shadow: 0 0 4px rgb(0, 255, 128);
+  animation: scale 1s;
+}
 .modal_window {
   position: absolute;
   top: 50%;

@@ -21,15 +21,62 @@ let health = 3;
 let points = 10;
 let maxNumber = 5;
 
-function startGame() {
+function autoModeGame() {
+  startGame();
+  function f() {
+    const bubble = document.querySelector(".bubble");
+    setTimeout(() => {
+      screenControl.textContent = bubble.dataset.result;
+    }, 3000);
+    setTimeout(() => {
+      enterButton.classList.add("scale_enter");
+      bubble.classList.add("correct_answer");
+      screenControl.textContent = null;
+      setTimeout(() => {
+        enterButton.classList.remove("scale_enter");
+        bubble.remove();
+        score.textContent = +score.textContent + points;
+        points++;
+        score.classList.add("scale_score");
+        setTimeout(() => {
+          score.classList.remove("scale_score");
+        }, 500);
+      }, 800);
+    }, 4000);
+    setTimeout(() => {
+      screenControl.textContent = null;
+    }, 5000);
+  }
+  setInterval(f, 6000);
+  setTimeout(() => {
+    clearInterval(IntervalId);
+    stopGame();
+  }, 25000);
+  return f();
+}
+
+howToPlay.addEventListener("click", autoModeGame);
+
+function startGame(mode = 0) {
   intervalDrops = 5500;
   points = 10;
   maxNumber = 5;
   score.textContent = 0;
   started.classList.add("hidden");
   control.classList.remove("hidden");
-  setInterval(trackPositionOfTop, 500);
-  makeGameIteration();
+  if (mode !== "auto") {
+    setInterval(trackPositionOfTop, 500);
+    makeGameIteration();
+  }
+  if (mode === "auto") {
+    const bubble = document.createElement("div");
+    const [text, result] = getRandomExpression(maxNumber);
+    bubble.textContent = text;
+    bubble.dataset.result = result;
+    bubble.style.left = `${randomNumber(10, 90)}%`;
+    bubble.className = "bubble";
+    gameArea.append(bubble);
+  }
 }
 function stopGame() {
   gameArea.querySelectorAll(".bubble").forEach((el) => el.remove());
@@ -110,6 +157,7 @@ function trackPositionOfTop() {
     fail();
   }
   if (health < 1) {
+    clearInterval(IntervalId);
     finalScore.textContent = score.textContent;
     gameOverWindow.classList.add("modal_window");
     stopGame();
@@ -126,6 +174,7 @@ function trackPositionOfTop() {
     }
   }
 }
+let IntervalId;
 
 function createBubble() {
   const bubble = document.createElement("div");
@@ -135,7 +184,7 @@ function createBubble() {
   bubble.style.left = `${randomNumber(10, 90)}%`;
   bubble.className = "bubble";
   gameArea.append(bubble);
-  setTimeout(makeGameIteration, intervalDrops);
+  IntervalId = setTimeout(makeGameIteration, intervalDrops);
 }
 
 function fail() {
