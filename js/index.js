@@ -243,7 +243,7 @@ panelButtons.addEventListener("click", (event) => {
 document.addEventListener("keydown", (event) => {
   const bubble = document.querySelector(".bubble");
   const valid = event.key.match(/^[0-9,Delete,Backspace,Enter]/g) !== null;
-
+  const esc = event.key.match(/^[Escape]/g) !== null;
   if (valid) {
     if (event.key.match(/^[0-9]/g) !== null) {
       screenControl.textContent += event.key;
@@ -261,5 +261,4 @@ document.addEventListener("keydown", (event) => {
 
 fullScreenButton.addEventListener("click", () => {
   document.body.requestFullscreen();
-  fullScreenButton.style.display = "none";
 });

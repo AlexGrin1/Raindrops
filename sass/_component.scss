@@ -9,7 +9,7 @@
   width: 50px;
   height: 50px;
   z-index: 10;
-
+  filter: invert(1);
   opacity: 0.3;
   background-image: url(../media/full-screen.png);
   background-repeat: no-repeat;
