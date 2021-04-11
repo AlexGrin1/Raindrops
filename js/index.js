@@ -22,6 +22,17 @@ let intervalDrops;
 let health = 3;
 let points = 10;
 let maxNumber = 5;
+let intervalTrackPosition;
+
+function soundPlay(link, time = 800) {
+  const audio = document.createElement("audio");
+  audio.setAttribute("autoplay", "true");
+  audio.innerHTML = link;
+  document.body.appendChild(audio);
+  setTimeout(() => {
+    audio.parentNode.removeChild(audio);
+  }, time);
+}
 
 function autoModeGame() {
   startGame();
@@ -67,7 +78,7 @@ function startGame(mode = 0) {
   started.classList.add("hidden");
   control.classList.remove("hidden");
   if (mode !== "auto") {
-    setInterval(trackPositionOfTop, 500);
+    intervalTrackPosition = setInterval(trackPositionOfTop, 500);
     makeGameIteration();
   }
   if (mode === "auto") {
@@ -80,7 +91,10 @@ function startGame(mode = 0) {
     gameArea.append(bubble);
   }
 }
+
 function stopGame() {
+  clearInterval(intervalTrackPosition);
+  soundPlay("<source src='./media/final.mp3'>", 6000);
   gameArea.querySelectorAll(".bubble").forEach((el) => el.remove());
   starIcon.forEach((el) => {
     el.classList.remove("star_icon");
@@ -190,6 +204,7 @@ function createBubble() {
 }
 
 function fail() {
+  soundPlay("<source src='./media/not.mp3'>");
   const bubble = document.querySelector(".bubble");
   bubble.classList.add("bad_answer");
   starIcon[health - 1].classList.add("bad_answer");
@@ -209,6 +224,7 @@ function enterEvent(event, condition, eventCondition) {
   if (eventCondition) {
     intervalDrops -= 100;
     if (condition) {
+      soundPlay("<source src='./media/ok.mp3'>", 1000);
       bubble.classList.add("correct_answer");
       screenControl.textContent = null;
       setTimeout(() => {
@@ -261,4 +277,10 @@ document.addEventListener("keydown", (event) => {
 
 fullScreenButton.addEventListener("click", () => {
   document.body.requestFullscreen();
+});
+
+started.querySelectorAll("button").forEach((e) => {
+  e.addEventListener("click", () => {
+    soundPlay("<source src='./media/click.mp3'>", 1000);
+  });
 });
