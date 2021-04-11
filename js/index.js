@@ -15,6 +15,8 @@ const panelButtons = document.querySelector(".buttons_panel_control");
 const deleteButton = document.getElementById("delete");
 const clearButton = document.getElementById("clear");
 const enterButton = document.getElementById("enter");
+const fullScreenButton = document.getElementById("scren-mode");
+const container = document.querySelector(".container");
 const operators = ["+", "-", "*", "/"];
 let intervalDrops;
 let health = 3;
@@ -241,6 +243,7 @@ panelButtons.addEventListener("click", (event) => {
 document.addEventListener("keydown", (event) => {
   const bubble = document.querySelector(".bubble");
   const valid = event.key.match(/^[0-9,Delete,Backspace,Enter]/g) !== null;
+
   if (valid) {
     if (event.key.match(/^[0-9]/g) !== null) {
       screenControl.textContent += event.key;
@@ -251,4 +254,12 @@ document.addEventListener("keydown", (event) => {
       event.key === "Enter" && screenControl.textContent !== ""
     );
   }
+  if (esc) {
+    fullScreenButton.style.display = "block";
+  }
+});
+
+fullScreenButton.addEventListener("click", () => {
+  document.body.requestFullscreen();
+  fullScreenButton.style.display = "none";
 });
