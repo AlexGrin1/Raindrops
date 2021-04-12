@@ -295,9 +295,15 @@ container.querySelectorAll("button").forEach((e) => {
     soundPlay("<source src='./media/click.mp3'>", 1000);
   });
 });
-
+let fullMode = false;
 fullScreenButton.addEventListener("click", () => {
-  document.body.requestFullscreen();
+  if (fullMode === false) {
+    document.body.requestFullscreen();
+    fullMode = true;
+  } else {
+    document.webkitCancelFullScreen();
+    fullMode = false;
+  }
 });
 
 playButton.addEventListener("click", startGame);

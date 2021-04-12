@@ -95,3 +95,17 @@
     transform: scale(1);
   }
 }
+@keyframes scale_enter {
+  0% {
+    transform: scale(1);
+    color: black;
+  }
+  50% {
+    transform: scale(1.1);
+    color: red;
+  }
+  100% {
+    transform: scale(1);
+    color: black;
+  }
+}

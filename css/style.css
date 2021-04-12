@@ -94,6 +94,20 @@
     transform: scale(1);
   }
 }
+@keyframes scale_enter {
+  0% {
+    transform: scale(1);
+    color: black;
+  }
+  50% {
+    transform: scale(1.1);
+    color: red;
+  }
+  100% {
+    transform: scale(1);
+    color: black;
+  }
+}
 * {
   margin: 0;
   padding: 0;
@@ -339,7 +353,7 @@
 
 .scale_enter {
   box-shadow: 0 0 4px #00ff80;
-  animation: scale 1s;
+  animation: scale_enter 0.5s;
 }
 
 .modal_window {

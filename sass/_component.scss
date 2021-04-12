@@ -149,7 +149,7 @@
 }
 .scale_enter {
   box-shadow: 0 0 4px rgb(0, 255, 128);
-  animation: scale 1s;
+  animation: scale_enter 0.5s;
 }
 .modal_window {
   position: absolute;
