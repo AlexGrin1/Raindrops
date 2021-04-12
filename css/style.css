@@ -403,6 +403,7 @@
   padding: 5px;
   background-color: rgba(255, 0, 0, 0.589);
   border-radius: 10px;
+  color: white;
   animation: button_go 3s infinite;
 }
 .try_again:hover {

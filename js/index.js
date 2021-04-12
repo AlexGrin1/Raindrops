@@ -39,7 +39,8 @@ function soundPlay(link, time = 800) {
 }
 
 function autoModeGame() {
-  startGame();
+  startGame("auto");
+  document.removeEventListener("keydown", (event) => {});
   function itarationAutoGame() {
     console.log("again");
     const bubble = document.querySelector(".bubble");
@@ -74,7 +75,7 @@ function autoModeGame() {
   }, 23900);
 }
 
-function startGame() {
+function startGame(mode = 0) {
   intervalDrops = 5500;
   points = 10;
   maxNumber = 5;
@@ -83,6 +84,10 @@ function startGame() {
   control.classList.remove("hidden");
   intervalTrackPosition = setInterval(trackPositionOfTop, 500);
   makeGameIteration();
+  if (mode !== "auto") {
+    document.addEventListener("keydown", listenerKeydown);
+    panelButtons.addEventListener("click", lestenerMouseEvent);
+  }
 }
 
 function stopGame() {
@@ -94,6 +99,8 @@ function stopGame() {
   });
   started.classList.remove("hidden");
   control.classList.add("hidden");
+  document.removeEventListener("keydown", listenerKeydown);
+  panelButtons.removeEventListener("click", lestenerMouseEvent);
 }
 
 function changeLevel(color, name, time, max) {
@@ -102,28 +109,52 @@ function changeLevel(color, name, time, max) {
   const infoMaxNumber = document.querySelector(".difficulty_expression span");
   document.documentElement.style.setProperty(
     "--animation-duration",
-    `${time}s`
+    `${this.time}s`
   );
-  infoLevel.style.backgroundColor = color;
-  infoLevel.textContent = name;
-  maxNumber = max;
-  infoMaxNumber.textContent = maxNumber;
+  infoLevel.style.backgroundColor = this.color;
+  infoLevel.textContent = this.name;
+  maxNumber = this.max;
+  infoMaxNumber.textContent = this.maxNumber;
+  console.log(this.time + this.name + this.color);
 }
+const LEVEL_SETTINGS = {
+  ["LEVELS.EASY"]: {
+    time: 10,
+    color: "lime",
+    max: 5,
+    name: "EASY",
+  },
+  ["LEVELS.LOW"]: {
+    dropTime: 8,
+    color: "green",
+    maxNumber: 7,
+  },
+  ["LEVELS.MEDIUM"]: {
+    dropTime: 6,
+    color: "orange",
+    maxNumber: 9,
+  },
+  ["LEVELS.HARD"]: {
+    dropTime: 4,
+    color: "red",
+    maxNumber: 11,
+  },
+};
 
 function makeGameIteration() {
   if (health > 0) {
     createBubble();
     if (score.textContent < 50) {
-      changeLevel("Lime", "EASY", "10", 5);
+      changeLevel(LEVEL_SETTINGS["LEVELS.EASY"]);
     }
     if (score.textContent > 50 && score.textContent <= 150) {
-      changeLevel("green", "LOW", "8", 7);
+      changeLevel(LEVEL_SETTINGS["LEVELS.LOW"]);
     }
     if (score.textContent > 150 && score.textContent <= 300) {
-      changeLevel("orange", "MEDIUM", "6", 9);
+      changeLevel(LEVEL_SETTINGS["LEVELS.MEDIUM"]);
     }
     if (score.textContent > 300) {
-      changeLevel("red", "HARD", "4", maxNumber + 1);
+      changeLevel(LEVEL_SETTINGS["LEVELS.HARD"]);
     }
   }
 }
@@ -244,8 +275,7 @@ function enterEvent(event, condition, eventCondition) {
     screenControl.textContent = screenControl.textContent.slice(0, -1);
   }
 }
-
-panelButtons.addEventListener("click", (event) => {
+function lestenerMouseEvent() {
   const bubble = document.querySelector(".bubble");
   if (event.target.className === "control_buttons number") {
     screenControl.textContent += event.target.textContent;
@@ -255,15 +285,8 @@ panelButtons.addEventListener("click", (event) => {
     screenControl.textContent === bubble.dataset.result,
     event.target.id === "enter"
   );
-});
-
-started.querySelectorAll("button").forEach((e) => {
-  e.addEventListener("click", () => {
-    soundPlay("<source src='./media/click.mp3'>", 1000);
-  });
-});
-
-document.addEventListener("keydown", (event) => {
+}
+function listenerKeydown() {
   const bubble = document.querySelector(".bubble");
   const valid = event.key.match(/^[0-9,Delete,Backspace,Enter]/g) !== null;
   const esc = event.key.match(/^[Escape]/g) !== null;
@@ -280,6 +303,12 @@ document.addEventListener("keydown", (event) => {
   if (esc) {
     fullScreenButton.style.display = "block";
   }
+}
+
+container.querySelectorAll("button").forEach((e) => {
+  e.addEventListener("click", () => {
+    soundPlay("<source src='./media/click.mp3'>", 1000);
+  });
 });
 
 fullScreenButton.addEventListener("click", () => {
