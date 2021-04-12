@@ -6,9 +6,7 @@ const gameArea = document.querySelector(".game");
 const score = document.getElementById("score");
 const gameOverWindow = document.getElementById("game_over_window");
 const finalScore = document.querySelector(".final_score span");
-const bestResult = document.querySelector(
-  ".final_score:nth-last-child(2) span"
-);
+const bestResult = document.querySelector(".final_score:nth-last-child(2) span");
 
 const tryAgain = document.querySelector(".try_again");
 const starIcon = document.querySelectorAll("img");
@@ -41,7 +39,7 @@ function soundPlay(link, time = 800) {
 function autoModeGame() {
   startGame("auto");
   document.removeEventListener("keydown", (event) => {});
-  function itarationAutoGame() {
+  function iterationAutoGame() {
     console.log("again");
     const bubble = document.querySelector(".bubble");
     setTimeout(() => {
@@ -66,8 +64,8 @@ function autoModeGame() {
       screenControl.textContent = null;
     }, 5000);
   }
-  itarationAutoGame();
-  intervalAutoModeGame = setInterval(itarationAutoGame, 6000);
+  iterationAutoGame();
+  intervalAutoModeGame = setInterval(iterationAutoGame, 6000);
   setTimeout(() => {
     clearInterval(intervalAutoModeGame);
     clearInterval(timeoutCreateBubble);
@@ -79,7 +77,7 @@ function startGame(mode = 0) {
   intervalDrops = 5500;
   points = 10;
   maxNumber = 5;
-  score.textContent = 0;
+  score.textContent = 305;
   started.classList.add("hidden");
   control.classList.remove("hidden");
   intervalTrackPosition = setInterval(trackPositionOfTop, 500);
@@ -102,44 +100,42 @@ function stopGame() {
   document.removeEventListener("keydown", listenerKeydown);
   panelButtons.removeEventListener("click", lestenerMouseEvent);
 }
-
-function changeLevel(color, name, time, max) {
-  const allBubble = document.querySelectorAll(".bubble");
-  const infoLevel = document.querySelector(".level");
-  const infoMaxNumber = document.querySelector(".difficulty_expression span");
-  document.documentElement.style.setProperty(
-    "--animation-duration",
-    `${this.time}s`
-  );
-  infoLevel.style.backgroundColor = this.color;
-  infoLevel.textContent = this.name;
-  maxNumber = this.max;
-  infoMaxNumber.textContent = this.maxNumber;
-  console.log(this.time + this.name + this.color);
-}
 const LEVEL_SETTINGS = {
-  ["LEVELS.EASY"]: {
+  "LEVELS.EASY": {
     time: 10,
     color: "lime",
     max: 5,
     name: "EASY",
   },
-  ["LEVELS.LOW"]: {
-    dropTime: 8,
+  "LEVELS.LOW": {
+    time: 8,
     color: "green",
-    maxNumber: 7,
+    max: 7,
+    name: "LOW",
   },
-  ["LEVELS.MEDIUM"]: {
-    dropTime: 6,
+  "LEVELS.MEDIUM": {
+    time: 6,
     color: "orange",
-    maxNumber: 9,
+    max: 9,
+    name: "MEDIUM",
   },
-  ["LEVELS.HARD"]: {
-    dropTime: 4,
+  "LEVELS.HARD": {
+    time: 4,
     color: "red",
-    maxNumber: 11,
+    max: 12,
+    name: "HARD",
   },
 };
+function changeLevel({ color, name, time, max }) {
+  const allBubble = document.querySelectorAll(".bubble");
+  const infoLevel = document.querySelector(".level");
+  const infoMaxNumber = document.querySelector(".difficulty_expression span");
+  document.documentElement.style.setProperty("--animation-duration", `${time}s`);
+  infoLevel.style.backgroundColor = color;
+  infoLevel.textContent = name;
+  maxNumber = max;
+  infoMaxNumber.textContent = maxNumber;
+}
 
 function makeGameIteration() {
   if (health > 0) {
@@ -192,11 +188,7 @@ function getRandomExpression(max, min = 0) {
 
 function trackPositionOfTop() {
   const firstBubble = document.querySelector(".bubble");
-  if (
-    firstBubble &&
-    firstBubble.getBoundingClientRect().top >=
-      document.documentElement.clientHeight - 200
-  ) {
+  if (firstBubble && firstBubble.getBoundingClientRect().top >= document.documentElement.clientHeight - 200) {
     firstBubble.remove();
     fail();
   }
@@ -209,10 +201,7 @@ function trackPositionOfTop() {
       gameOverWindow.classList.remove("modal_window");
       health = 3;
     });
-    if (
-      localStorage.getItem("bestResult") < score.textContent ||
-      localStorage.getItem("bestResult") === null
-    ) {
+    if (localStorage.getItem("bestResult") < score.textContent || localStorage.getItem("bestResult") === null) {
       localStorage.setItem("bestResult", score.textContent);
       bestResult.textContent = score.textContent;
     }
@@ -280,11 +269,7 @@ function lestenerMouseEvent() {
   if (event.target.className === "control_buttons number") {
     screenControl.textContent += event.target.textContent;
   }
-  enterEvent(
-    event,
-    screenControl.textContent === bubble.dataset.result,
-    event.target.id === "enter"
-  );
+  enterEvent(event, screenControl.textContent === bubble.dataset.result, event.target.id === "enter");
 }
 function listenerKeydown() {
   const bubble = document.querySelector(".bubble");
