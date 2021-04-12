@@ -6,7 +6,9 @@ const gameArea = document.querySelector(".game");
 const score = document.getElementById("score");
 const gameOverWindow = document.getElementById("game_over_window");
 const finalScore = document.querySelector(".final_score span");
-const bestResult = document.querySelector(".final_score:nth-last-child(2) span");
+const bestResult = document.querySelector(
+  ".final_score:nth-last-child(2) span"
+);
 
 const tryAgain = document.querySelector(".try_again");
 const starIcon = document.querySelectorAll("img");
@@ -23,6 +25,8 @@ let health = 3;
 let points = 10;
 let maxNumber = 5;
 let intervalTrackPosition;
+let timeoutCreateBubble;
+let intervalAutoModeGame;
 
 function soundPlay(link, time = 800) {
   const audio = document.createElement("audio");
@@ -36,7 +40,8 @@ function soundPlay(link, time = 800) {
 
 function autoModeGame() {
   startGame();
-  function f() {
+  function itarationAutoGame() {
+    console.log("again");
     const bubble = document.querySelector(".bubble");
     setTimeout(() => {
       screenControl.textContent = bubble.dataset.result;
@@ -60,36 +65,24 @@ function autoModeGame() {
       screenControl.textContent = null;
     }, 5000);
   }
-  setInterval(f, 6000);
+  itarationAutoGame();
+  intervalAutoModeGame = setInterval(itarationAutoGame, 6000);
   setTimeout(() => {
-    clearInterval(IntervalId);
+    clearInterval(intervalAutoModeGame);
+    clearInterval(timeoutCreateBubble);
     stopGame();
-  }, 25000);
-  return f();
+  }, 23900);
 }
 
-howToPlay.addEventListener("click", autoModeGame);
-
-function startGame(mode = 0) {
+function startGame() {
   intervalDrops = 5500;
   points = 10;
   maxNumber = 5;
   score.textContent = 0;
   started.classList.add("hidden");
   control.classList.remove("hidden");
-  if (mode !== "auto") {
-    intervalTrackPosition = setInterval(trackPositionOfTop, 500);
-    makeGameIteration();
-  }
-  if (mode === "auto") {
-    const bubble = document.createElement("div");
-    const [text, result] = getRandomExpression(maxNumber);
-    bubble.textContent = text;
-    bubble.dataset.result = result;
-    bubble.style.left = `${randomNumber(10, 90)}%`;
-    bubble.className = "bubble";
-    gameArea.append(bubble);
-  }
+  intervalTrackPosition = setInterval(trackPositionOfTop, 500);
+  makeGameIteration();
 }
 
 function stopGame() {
@@ -107,10 +100,10 @@ function changeLevel(color, name, time, max) {
   const allBubble = document.querySelectorAll(".bubble");
   const infoLevel = document.querySelector(".level");
   const infoMaxNumber = document.querySelector(".difficulty_expression span");
-  // allBubble.forEach((el) => {
-  //   el.style.setProperty("--animation-duration", `${time}s`);
-  // });
-  document.documentElement.style.setProperty("--animation-duration", `${time}s`);
+  document.documentElement.style.setProperty(
+    "--animation-duration",
+    `${time}s`
+  );
   infoLevel.style.backgroundColor = color;
   infoLevel.textContent = name;
   maxNumber = max;
@@ -168,12 +161,16 @@ function getRandomExpression(max, min = 0) {
 
 function trackPositionOfTop() {
   const firstBubble = document.querySelector(".bubble");
-  if (firstBubble && firstBubble.getBoundingClientRect().top >= document.documentElement.clientHeight - 200) {
+  if (
+    firstBubble &&
+    firstBubble.getBoundingClientRect().top >=
+      document.documentElement.clientHeight - 200
+  ) {
     firstBubble.remove();
     fail();
   }
   if (health < 1) {
-    clearInterval(IntervalId);
+    clearInterval(timeoutCreateBubble);
     finalScore.textContent = score.textContent;
     gameOverWindow.classList.add("modal_window");
     stopGame();
@@ -181,7 +178,10 @@ function trackPositionOfTop() {
       gameOverWindow.classList.remove("modal_window");
       health = 3;
     });
-    if (localStorage.getItem("bestResult") < score.textContent || localStorage.getItem("bestResult") === null) {
+    if (
+      localStorage.getItem("bestResult") < score.textContent ||
+      localStorage.getItem("bestResult") === null
+    ) {
       localStorage.setItem("bestResult", score.textContent);
       bestResult.textContent = score.textContent;
     }
@@ -190,7 +190,6 @@ function trackPositionOfTop() {
     }
   }
 }
-let IntervalId;
 
 function createBubble() {
   const bubble = document.createElement("div");
@@ -200,7 +199,7 @@ function createBubble() {
   bubble.style.left = `${randomNumber(10, 90)}%`;
   bubble.className = "bubble";
   gameArea.append(bubble);
-  IntervalId = setTimeout(makeGameIteration, intervalDrops);
+  timeoutCreateBubble = setTimeout(makeGameIteration, intervalDrops);
 }
 
 function fail() {
@@ -216,8 +215,6 @@ function fail() {
   }, 200);
   screenControl.textContent = null;
 }
-
-playButton.addEventListener("click", startGame);
 
 function enterEvent(event, condition, eventCondition) {
   const bubble = document.querySelector(".bubble");
@@ -253,7 +250,17 @@ panelButtons.addEventListener("click", (event) => {
   if (event.target.className === "control_buttons number") {
     screenControl.textContent += event.target.textContent;
   }
-  enterEvent(event, screenControl.textContent === bubble.dataset.result, event.target.id === "enter");
+  enterEvent(
+    event,
+    screenControl.textContent === bubble.dataset.result,
+    event.target.id === "enter"
+  );
+});
+
+started.querySelectorAll("button").forEach((e) => {
+  e.addEventListener("click", () => {
+    soundPlay("<source src='./media/click.mp3'>", 1000);
+  });
 });
 
 document.addEventListener("keydown", (event) => {
@@ -279,8 +286,6 @@ fullScreenButton.addEventListener("click", () => {
   document.body.requestFullscreen();
 });
 
-started.querySelectorAll("button").forEach((e) => {
-  e.addEventListener("click", () => {
-    soundPlay("<source src='./media/click.mp3'>", 1000);
-  });
-});
+playButton.addEventListener("click", startGame);
+
+howToPlay.addEventListener("click", autoModeGame);
