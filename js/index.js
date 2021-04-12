@@ -77,7 +77,7 @@ function startGame(mode = 0) {
   intervalDrops = 5500;
   points = 10;
   maxNumber = 5;
-  score.textContent = 305;
+  score.textContent = 0;
   started.classList.add("hidden");
   control.classList.remove("hidden");
   intervalTrackPosition = setInterval(trackPositionOfTop, 500);
