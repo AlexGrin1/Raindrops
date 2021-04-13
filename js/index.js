@@ -6,9 +6,7 @@ const gameArea = document.querySelector(".game");
 const score = document.getElementById("score");
 const gameOverWindow = document.getElementById("game_over_window");
 const finalScore = document.querySelector(".final_score span");
-const bestResult = document.querySelector(
-  ".final_score:nth-last-child(2) span"
-);
+const bestResult = document.querySelector(".final_score:nth-last-child(2) span");
 
 const tryAgain = document.querySelector(".try_again");
 const starIcon = document.querySelectorAll("img");
@@ -26,7 +24,6 @@ let points = 10;
 let maxNumber = 5;
 let intervalTrackPosition;
 let timeoutCreateBubble;
-let intervalAutoModeGame;
 
 function soundPlay(link, time = 800) {
   const audio = document.createElement("audio");
@@ -39,6 +36,7 @@ function soundPlay(link, time = 800) {
 }
 
 function autoModeGame() {
+  const intervalAutoModeGame = setInterval(iterationAutoGame, 6000);
   startGame("auto");
   document.removeEventListener("keydown", (event) => {});
   function iterationAutoGame() {
@@ -54,13 +52,6 @@ function autoModeGame() {
       setTimeout(() => {
         enterButton.classList.remove("scale_enter");
         countAndScaleScore();
-        // bubble.remove();
-        // score.textContent = +score.textContent + points;
-        // points++;
-        // score.classList.add("scale_score");
-        // setTimeout(() => {
-        //   score.classList.remove("scale_score");
-        // }, 500);
       }, 800);
     }, 4000);
     setTimeout(() => {
@@ -68,7 +59,6 @@ function autoModeGame() {
     }, 5000);
   }
   iterationAutoGame();
-  intervalAutoModeGame = setInterval(iterationAutoGame, 6000);
   setTimeout(() => {
     clearInterval(intervalAutoModeGame);
     clearInterval(timeoutCreateBubble);
@@ -133,10 +123,7 @@ function changeLevel({ color, name, time, max }) {
   const allBubble = document.querySelectorAll(".bubble");
   const infoLevel = document.querySelector(".level");
   const infoMaxNumber = document.querySelector(".difficulty_expression span");
-  document.documentElement.style.setProperty(
-    "--animation-duration",
-    `${time}s`
-  );
+  document.documentElement.style.setProperty("--animation-duration", `${time}s`);
   infoLevel.style.backgroundColor = color;
   infoLevel.textContent = name;
   maxNumber = max;
@@ -204,11 +191,7 @@ function getRandomExpression(max, min = 0) {
 
 function trackPositionOfTop() {
   const firstBubble = document.querySelector(".bubble");
-  if (
-    firstBubble &&
-    firstBubble.getBoundingClientRect().top >=
-      document.documentElement.clientHeight - 200
-  ) {
+  if (firstBubble && firstBubble.getBoundingClientRect().top >= document.documentElement.clientHeight - 200) {
     firstBubble.remove();
     fail();
   }
@@ -225,10 +208,7 @@ function gameOver() {
     gameOverWindow.classList.remove("modal_window");
     health = 3;
   });
-  if (
-    localStorage.getItem("bestResult") < score.textContent ||
-    localStorage.getItem("bestResult") === null
-  ) {
+  if (localStorage.getItem("bestResult") < score.textContent || localStorage.getItem("bestResult") === null) {
     localStorage.setItem("bestResult", score.textContent);
     bestResult.textContent = score.textContent;
   }
@@ -283,11 +263,7 @@ function lestenerMouseEvent() {
   if (event.target.className === "control_buttons number") {
     screenControl.textContent += event.target.textContent;
   }
-  enterEvent(
-    event,
-    screenControl.textContent === bubble.dataset.result,
-    event.target.id === "enter"
-  );
+  enterEvent(event, screenControl.textContent === bubble.dataset.result, event.target.id === "enter");
   if (event.target.id === "clear") {
     screenControl.textContent = null;
   }
@@ -299,7 +275,7 @@ function listenerKeydown() {
   const bubble = document.querySelector(".bubble");
   const valid = event.key.match(/^[0-9,Delete,Backspace,Enter]/g) !== null;
   const esc = event.key.match(/^[Escape]/g) !== null;
-  if (valid) {
+  if (valid && bubble !== null) {
     if (event.key.match(/^[0-9]/g) !== null) {
       screenControl.textContent += event.key;
     }
