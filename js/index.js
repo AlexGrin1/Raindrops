@@ -6,7 +6,9 @@ const gameArea = document.querySelector(".game");
 const score = document.getElementById("score");
 const gameOverWindow = document.getElementById("game_over_window");
 const finalScore = document.querySelector(".final_score span");
-const bestResult = document.querySelector(".final_score:nth-last-child(2) span");
+const bestResult = document.querySelector(
+  ".final_score:nth-last-child(2) span"
+);
 
 const tryAgain = document.querySelector(".try_again");
 const starIcon = document.querySelectorAll("img");
@@ -51,13 +53,14 @@ function autoModeGame() {
       screenControl.textContent = null;
       setTimeout(() => {
         enterButton.classList.remove("scale_enter");
-        bubble.remove();
-        score.textContent = +score.textContent + points;
-        points++;
-        score.classList.add("scale_score");
-        setTimeout(() => {
-          score.classList.remove("scale_score");
-        }, 500);
+        countAndScaleScore();
+        // bubble.remove();
+        // score.textContent = +score.textContent + points;
+        // points++;
+        // score.classList.add("scale_score");
+        // setTimeout(() => {
+        //   score.classList.remove("scale_score");
+        // }, 500);
       }, 800);
     }, 4000);
     setTimeout(() => {
@@ -130,7 +133,10 @@ function changeLevel({ color, name, time, max }) {
   const allBubble = document.querySelectorAll(".bubble");
   const infoLevel = document.querySelector(".level");
   const infoMaxNumber = document.querySelector(".difficulty_expression span");
-  document.documentElement.style.setProperty("--animation-duration", `${time}s`);
+  document.documentElement.style.setProperty(
+    "--animation-duration",
+    `${time}s`
+  );
   infoLevel.style.backgroundColor = color;
   infoLevel.textContent = name;
   maxNumber = max;
@@ -153,6 +159,16 @@ function makeGameIteration() {
       changeLevel(LEVEL_SETTINGS["LEVELS.HARD"]);
     }
   }
+}
+function countAndScaleScore() {
+  const bubble = document.querySelector(".bubble");
+  bubble.remove();
+  score.textContent = +score.textContent + points;
+  points++;
+  score.classList.add("scale_score");
+  setTimeout(() => {
+    score.classList.remove("scale_score");
+  }, 500);
 }
 
 function randomOperator() {
@@ -188,26 +204,36 @@ function getRandomExpression(max, min = 0) {
 
 function trackPositionOfTop() {
   const firstBubble = document.querySelector(".bubble");
-  if (firstBubble && firstBubble.getBoundingClientRect().top >= document.documentElement.clientHeight - 200) {
+  if (
+    firstBubble &&
+    firstBubble.getBoundingClientRect().top >=
+      document.documentElement.clientHeight - 200
+  ) {
     firstBubble.remove();
     fail();
   }
   if (health < 1) {
-    clearInterval(timeoutCreateBubble);
-    finalScore.textContent = score.textContent;
-    gameOverWindow.classList.add("modal_window");
-    stopGame();
-    tryAgain.addEventListener("click", () => {
-      gameOverWindow.classList.remove("modal_window");
-      health = 3;
-    });
-    if (localStorage.getItem("bestResult") < score.textContent || localStorage.getItem("bestResult") === null) {
-      localStorage.setItem("bestResult", score.textContent);
-      bestResult.textContent = score.textContent;
-    }
-    if (localStorage.getItem("bestResult") >= score.textContent) {
-      bestResult.textContent = localStorage.getItem("bestResult");
-    }
+    gameOver();
+  }
+}
+function gameOver() {
+  clearInterval(timeoutCreateBubble);
+  finalScore.textContent = score.textContent;
+  gameOverWindow.classList.add("modal_window");
+  stopGame();
+  tryAgain.addEventListener("click", () => {
+    gameOverWindow.classList.remove("modal_window");
+    health = 3;
+  });
+  if (
+    localStorage.getItem("bestResult") < score.textContent ||
+    localStorage.getItem("bestResult") === null
+  ) {
+    localStorage.setItem("bestResult", score.textContent);
+    bestResult.textContent = score.textContent;
+  }
+  if (localStorage.getItem("bestResult") >= score.textContent) {
+    bestResult.textContent = localStorage.getItem("bestResult");
   }
 }
 
@@ -245,23 +271,11 @@ function enterEvent(event, condition, eventCondition) {
       bubble.classList.add("correct_answer");
       screenControl.textContent = null;
       setTimeout(() => {
-        bubble.remove();
-        score.textContent = +score.textContent + points;
-        points++;
-        score.classList.add("scale_score");
-        setTimeout(() => {
-          score.classList.remove("scale_score");
-        }, 500);
+        countAndScaleScore();
       }, 800);
     } else {
       fail();
     }
-  }
-  if (event.target.id === "clear") {
-    screenControl.textContent = null;
-  }
-  if (event.target.id === "delete") {
-    screenControl.textContent = screenControl.textContent.slice(0, -1);
   }
 }
 function lestenerMouseEvent() {
@@ -269,7 +283,17 @@ function lestenerMouseEvent() {
   if (event.target.className === "control_buttons number") {
     screenControl.textContent += event.target.textContent;
   }
-  enterEvent(event, screenControl.textContent === bubble.dataset.result, event.target.id === "enter");
+  enterEvent(
+    event,
+    screenControl.textContent === bubble.dataset.result,
+    event.target.id === "enter"
+  );
+  if (event.target.id === "clear") {
+    screenControl.textContent = null;
+  }
+  if (event.target.id === "delete") {
+    screenControl.textContent = screenControl.textContent.slice(0, -1);
+  }
 }
 function listenerKeydown() {
   const bubble = document.querySelector(".bubble");
@@ -284,6 +308,12 @@ function listenerKeydown() {
       screenControl.textContent === bubble.dataset.result,
       event.key === "Enter" && screenControl.textContent !== ""
     );
+    if (event.key.match(/^[Delete]/g)) {
+      screenControl.textContent = null;
+    }
+    if (event.key.match(/^[Backspace]/g)) {
+      screenControl.textContent = screenControl.textContent.slice(0, -1);
+    }
   }
   if (esc) {
     fullScreenButton.style.display = "block";
