@@ -334,6 +334,15 @@
   animation: dropWater var(--animation-duration) linear;
 }
 
+.boss_bubble {
+  width: 85px;
+  height: 85px;
+  border: 5px solid #b93838;
+  background-color: #ebebeb;
+  box-shadow: 0 0 15px #fdfdfd;
+  transform: rotate(5deg) 1s initial;
+}
+
 .bad_answer {
   transform: scale(1.4);
   background-color: #ff3e3e;

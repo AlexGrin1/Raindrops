@@ -133,6 +133,14 @@
   top: -100px;
   animation: dropWater var(--animation-duration) linear;
 }
+.boss_bubble {
+  width: 85px;
+  height: 85px;
+  border: 5px solid rgb(185, 56, 56);
+  background-color: rgb(235, 235, 235);
+  box-shadow: 0 0 15px rgb(253, 253, 253);
+  transform: rotate(5deg) 1s initial;
+}
 .bad_answer {
   transform: scale(1.4);
   background-color: rgb(255, 62, 62);
