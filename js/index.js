@@ -6,7 +6,9 @@ const gameArea = document.querySelector(".game");
 const score = document.getElementById("score");
 const gameOverWindow = document.getElementById("game_over_window");
 const finalScore = document.querySelector(".final_score span");
-const bestResult = document.querySelector(".final_score:nth-last-child(2) span");
+const bestResult = document.querySelector(
+  ".final_score:nth-last-child(2) span"
+);
 
 const tryAgain = document.querySelector(".try_again");
 const starIcon = document.querySelectorAll("img");
@@ -72,11 +74,11 @@ function startGame(mode = 0) {
   intervalDrops = 5500;
   points = 10;
   maxNumber = 5;
-  score.textContent = 0;
+  score.textContent = 300;
   started.classList.add("hidden");
   control.classList.remove("hidden");
   intervalTrackPosition = setInterval(trackPositionOfTop, 500);
-  intervalBossDrops = setInterval(createBossBubble, 15000);
+  intervalBossDrops = setInterval(createBossBubble, randomNumber(25000, 15000));
   makeGameIteration();
   if (mode !== "auto") {
     document.addEventListener("keydown", listenerKeydown);
@@ -118,7 +120,7 @@ const LEVEL_SETTINGS = {
   "LEVELS.HARD": {
     time: 4,
     color: "red",
-    max: 15,
+    max: 12,
     name: "HARD",
   },
 };
@@ -126,7 +128,10 @@ function changeLevel({ color, name, time, max }) {
   const allBubble = document.querySelectorAll(".bubble");
   const infoLevel = document.querySelector(".level");
   const infoMaxNumber = document.querySelector(".difficulty_expression span");
-  document.documentElement.style.setProperty("--animation-duration", `${time}s`);
+  document.documentElement.style.setProperty(
+    "--animation-duration",
+    `${time}s`
+  );
   infoLevel.style.backgroundColor = color;
   infoLevel.textContent = name;
   maxNumber = max;
@@ -195,7 +200,11 @@ function getRandomExpression(max, min = 0) {
 
 function trackPositionOfTop() {
   const firstBubble = document.querySelector(".bubble");
-  if (firstBubble && firstBubble.getBoundingClientRect().top >= document.documentElement.clientHeight - 200) {
+  if (
+    firstBubble &&
+    firstBubble.getBoundingClientRect().top >=
+      document.documentElement.clientHeight - 200
+  ) {
     firstBubble.remove();
     fail();
   }
@@ -213,7 +222,10 @@ function gameOver() {
     gameOverWindow.classList.remove("modal_window");
     health = 3;
   });
-  if (localStorage.getItem("bestResult") < score.textContent || localStorage.getItem("bestResult") === null) {
+  if (
+    localStorage.getItem("bestResult") < score.textContent ||
+    localStorage.getItem("bestResult") === null
+  ) {
     localStorage.setItem("bestResult", score.textContent);
     bestResult.textContent = score.textContent;
   }
@@ -243,23 +255,33 @@ function createBossBubble() {
 }
 
 function fail() {
+  intervalDrops -= 100;
   soundPlay("<source src='./media/not.mp3'>");
   const bubble = document.querySelector(".bubble");
-  //bubble.classList.add("bad_answer");
+  if (bubble !== null) {
+    bubble.classList.add("bad_answer");
+  }
   starIcon[health - 1].classList.add("bad_answer");
   setTimeout(() => {
-    bubble.classList.remove("bad_answer");
+    if (bubble !== null) {
+      bubble.classList.remove("bad_answer");
+    }
     starIcon[health - 1].classList.remove("bad_answer");
     starIcon[health - 1].classList.add("star_icon");
     health -= 1;
   }, 200);
+
   screenControl.textContent = null;
 }
 
 function enterEvent(event, condition, eventCondition) {
   const bubble = document.querySelector(".bubble");
   const bossBubble = document.querySelector(".boss_bubble");
-  if (bossBubble !== null && event.key === "Enter" && screenControl.textContent === bossBubble.dataset.result) {
+  if (
+    bossBubble !== null &&
+    event.key === "Enter" &&
+    screenControl.textContent === bossBubble.dataset.result
+  ) {
     soundPlay("<source src='./media/ok.mp3'>", 1000);
     bossBubble.classList.add("correct_answer");
     screenControl.textContent = null;
@@ -292,7 +314,11 @@ function lestenerMouseEvent() {
   if (event.target.className === "control_buttons number") {
     screenControl.textContent += event.target.textContent;
   }
-  enterEvent(event, screenControl.textContent === bubble.dataset.result, event.target.id === "enter");
+  enterEvent(
+    event,
+    screenControl.textContent === bubble.dataset.result,
+    event.target.id === "enter"
+  );
   if (event.target.id === "clear") {
     screenControl.textContent = null;
   }
