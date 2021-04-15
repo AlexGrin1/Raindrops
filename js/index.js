@@ -43,7 +43,6 @@ function autoModeGame() {
   startGame("auto");
   document.removeEventListener("keydown", (event) => {});
   function iterationAutoGame() {
-    console.log("again");
     const bubble = document.querySelector(".bubble");
     setTimeout(() => {
       screenControl.textContent = bubble.dataset.result;
@@ -65,7 +64,7 @@ function autoModeGame() {
   setTimeout(() => {
     clearInterval(intervalAutoModeGame);
     clearInterval(timeoutCreateBubble);
-    clearInterval(timeoutCreateBossBubble);
+    // clearInterval(timeoutCreateBossBubble);
     stopGame();
   }, 23900);
 }
@@ -74,13 +73,16 @@ function startGame(mode = 0) {
   intervalDrops = 5500;
   points = 10;
   maxNumber = 5;
-  score.textContent = 300;
+  score.textContent = 0;
   started.classList.add("hidden");
   control.classList.remove("hidden");
   intervalTrackPosition = setInterval(trackPositionOfTop, 500);
-  intervalBossDrops = setInterval(createBossBubble, randomNumber(25000, 15000));
   makeGameIteration();
   if (mode !== "auto") {
+    intervalBossDrops = setInterval(
+      createBossBubble,
+      randomNumber(25000, 15000)
+    );
     document.addEventListener("keydown", listenerKeydown);
     panelButtons.addEventListener("click", lestenerMouseEvent);
   }
@@ -217,8 +219,12 @@ function gameOver() {
   clearInterval(intervalBossDrops);
   finalScore.textContent = score.textContent;
   gameOverWindow.classList.add("modal_window");
+  playButton.removeEventListener("click", startGame);
+  howToPlay.removeEventListener("click", autoModeGame);
   stopGame();
   tryAgain.addEventListener("click", () => {
+    playButton.addEventListener("click", startGame);
+    howToPlay.addEventListener("click", autoModeGame);
     gameOverWindow.classList.remove("modal_window");
     health = 3;
   });
