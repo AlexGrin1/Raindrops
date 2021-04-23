@@ -1,0 +1,22 @@
+{
+  "name": "raindrops",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "sass --watch sass/main.scss css/style.css"
+  },
+  "devDependencies": {
+    "sass": "^1.32.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexGrin1/Raindrops.git"
+  },
+  "author": "AlexGrin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexGrin1/Raindrops/issues"
+  },
+  "homepage": "https://github.com/AlexGrin1/Raindrops#readme"
+}

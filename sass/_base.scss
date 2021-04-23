@@ -1,0 +1,73 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Patrick Hand", cursive;
+}
+
+@mixin flex_center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin center_position {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.container {
+  position: relative;
+  display: flex;
+  height: 100vh;
+}
+.game {
+  font-weight: 300;
+  position: relative;
+  display: flex;
+  flex: 3;
+  background-image: url(../media/beach.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow: hidden;
+}
+.start_logo {
+  @include flex_center;
+}
+.logo {
+  position: absolute;
+  top: 5%;
+  @include center_position;
+  padding: 5px;
+  margin-bottom: 20px;
+  font-size: $size_logo;
+  color: aqua;
+  animation: colors 15s infinite;
+}
+.control {
+  position: relative;
+  @include flex_center;
+  flex: 1;
+  background-color: $backgr_start_button;
+}
+.hidden {
+  display: none;
+}
+.score {
+  position: absolute;
+  top: 0;
+  @include center_position;
+  font-size: $size_text_button;
+  border-radius: 0 0 30% 30%;
+  width: 90%;
+  height: 50px;
+  background-color: rgb(243, 245, 244);
+  box-shadow: 0 0 10px red;
+  @include flex_center;
+  justify-content: flex-start;
+  padding-left: 15px;
+  padding-bottom: 7px;
+  overflow: hidden;
+}
+#score {
+  color: red;
+}

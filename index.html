@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./media/brain.png" type="image/x-icon" />
+    <title>Raindrops</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+
+  <body>
+    <main class="container">
+      <div class="full_screen" id="scren-mode"></div>
+      <section class="hidden" id="game_over_window">
+        <h1 class="game_over">Game Over</h1>
+        <div class="final_score">Your score : <span> 0</span></div>
+        <div class="final_score">Best result : <span>0</span></div>
+        <button class="final_score try_again">Try again</button>
+      </section>
+      <section class="game">
+        <div id="startedBlock">
+          <h1 class="logo">RainDrops</h1>
+          <div class="buttons_block">
+            <button id="play">PLAY</button>
+            <button id="howToPlay">How to play</button>
+          </div>
+        </div>
+      </section>
+      <section class="control hidden">
+        <div class="score">
+          <img src="./media/star.png" alt="star" width="14px" height="14px" />
+          <img src="./media/star.png" alt="star" width="15px" height="15px" />
+          <img src="./media/star.png" alt="star" width="16px" height="16px" />
+          <span>&nbspScore :&nbsp</span>
+          <span id="score"></span>
+        </div>
+
+        <div class="panel_control">
+          <div class="screen_panel_control"></div>
+          <div class="buttons_panel_control">
+            <button class="control_buttons number">1</button>
+            <button class="control_buttons number">2</button>
+            <button class="control_buttons number">3</button>
+            <button class="control_buttons number">4</button>
+            <button class="control_buttons number">5</button>
+            <button class="control_buttons number">6</button>
+            <button class="control_buttons number">7</button>
+            <button class="control_buttons number">8</button>
+            <button class="control_buttons number">9</button>
+            <button class="control_buttons number" id="null">0</button>
+            <button class="control_buttons" id="delete">Delete</button>
+            <button class="control_buttons" id="enter">Enter</button>
+            <button class="control_buttons" id="clear">Clear</button>
+          </div>
+          <div class="info_game">
+            <div class="level"></div>
+            <div class="difficulty_expression">Max: <span></span></div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="./js/index.js"></script>
+  </body>
+</html>
