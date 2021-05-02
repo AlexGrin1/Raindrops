@@ -38,7 +38,7 @@ function soundPlay(link, time = 800) {
   }, time);
 }
 
-function autoModeGame() {
+function autoModeGame(event) {
   const intervalAutoModeGame = setInterval(iterationAutoGame, 6000);
   startGame("auto");
   document.removeEventListener("keydown", (event) => {});
@@ -69,7 +69,7 @@ function autoModeGame() {
   }, 23900);
 }
 
-function startGame(mode = 0) {
+function startGame(event) {
   intervalDrops = 5500;
   points = 10;
   maxNumber = 5;
@@ -78,7 +78,7 @@ function startGame(mode = 0) {
   control.classList.remove("hidden");
   intervalTrackPosition = setInterval(trackPositionOfTop, 500);
   makeGameIteration();
-  if (mode !== "auto") {
+  if (event !== "auto") {
     intervalBossDrops = setInterval(
       createBossBubble,
       randomNumber(25000, 15000)
@@ -100,26 +100,32 @@ function stopGame() {
   document.removeEventListener("keydown", listenerKeydown);
   panelButtons.removeEventListener("click", lestenerMouseEvent);
 }
+const LEVELS = {
+  EASY: "EASY",
+  LOW: "LOW",
+  MEDIUM: "MEDIUM",
+  HARD: "HARD",
+};
 const LEVEL_SETTINGS = {
-  "LEVELS.EASY": {
+  [LEVELS.EASY]: {
     time: 10,
     color: "lime",
     max: 5,
     name: "EASY",
   },
-  "LEVELS.LOW": {
+  [LEVELS.LOW]: {
     time: 8,
     color: "green",
     max: 7,
     name: "LOW",
   },
-  "LEVELS.MEDIUM": {
+  [LEVELS.MEDIUM]: {
     time: 6,
     color: "orange",
     max: 9,
     name: "MEDIUM",
   },
-  "LEVELS.HARD": {
+  [LEVELS.HARD]: {
     time: 4,
     color: "red",
     max: 12,
@@ -145,16 +151,16 @@ function makeGameIteration() {
     createBubble();
 
     if (score.textContent < 50) {
-      changeLevel(LEVEL_SETTINGS["LEVELS.EASY"]);
+      changeLevel(LEVEL_SETTINGS[LEVELS.EASY]);
     }
     if (score.textContent > 50 && score.textContent <= 150) {
-      changeLevel(LEVEL_SETTINGS["LEVELS.LOW"]);
+      changeLevel(LEVEL_SETTINGS[LEVELS.LOW]);
     }
     if (score.textContent > 150 && score.textContent <= 300) {
-      changeLevel(LEVEL_SETTINGS["LEVELS.MEDIUM"]);
+      changeLevel(LEVEL_SETTINGS[LEVELS.MEDIUM]);
     }
     if (score.textContent > 300) {
-      changeLevel(LEVEL_SETTINGS["LEVELS.HARD"]);
+      changeLevel(LEVEL_SETTINGS[LEVELS.HARD]);
     }
   }
 }
@@ -315,7 +321,7 @@ function enterEvent(event, condition, eventCondition) {
     }
   }
 }
-function lestenerMouseEvent() {
+function lestenerMouseEvent(event) {
   const bubble = document.querySelector(".bubble");
   if (event.target.className === "control_buttons number") {
     screenControl.textContent += event.target.textContent;
@@ -332,7 +338,7 @@ function lestenerMouseEvent() {
     screenControl.textContent = screenControl.textContent.slice(0, -1);
   }
 }
-function listenerKeydown() {
+function listenerKeydown(event) {
   const bubble = document.querySelector(".bubble");
   const valid = event.key.match(/^[0-9,Delete,Backspace,Enter]/g) !== null;
   const esc = event.key.match(/^[Escape]/g) !== null;
